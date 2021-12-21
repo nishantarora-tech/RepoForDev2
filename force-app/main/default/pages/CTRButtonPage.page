@@ -1,0 +1,63 @@
+<apex:page Controller="CTRController" showHeader="false" sidebar="true">
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"/>
+    <style>
+         .popupBackground{
+            background-color:black;
+            opacity: 0.20;
+            filter: alpha(opacity = 20);
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            top: 0;
+            left: 0;
+            z-index: 9998;
+        }
+         .custPopup{
+            background-color: white;
+            border-width: 2px;
+            border-style: solid;
+            z-index: 9999;
+            left: 50%;
+            padding:1px;
+            position: absolute;
+            /* These are the 3 css properties you will need to change so the popup 
+            displays in the center of the screen. First set the width. Then set 
+            margin-left to negative half of what the width is. You can add 
+            the height property for a fixed size pop up if you want.*/
+            width: 500px;
+            margin-left: -250px;
+            top:100px;
+        }
+    </style>
+    <script type="text/javascript">      
+      function refreshPage(id){                                                 
+          if(hasMessages == 'false'){
+              window.top.location="/"+id;               
+          }
+      }
+    </script>    
+<apex:form >
+<apex:pageMessages id="msgId"></apex:pageMessages>
+    <apex:pageBlock >            
+        <apex:pageBlockSection >
+            <apex:inputField label="Category" id="catId" value="{!objCase.Case_Category__c}"/>
+            <apex:inputField value="{!objCase.Case_Type__c}"/>  
+            <apex:inputField value="{!objCase.Reason__c}"/>                          
+        </apex:pageBlockSection> 
+        <apex:pageBlockButtons >
+            <apex:commandButton value="Save" action="{!Save}" reRender="msgId,script-block" oncomplete="refreshPage('{!objCase.Id}')"/>
+            <apex:actionStatus id="status">
+                <apex:facet name="start" >
+                    <img src="/img/loading.gif" />                    
+                </apex:facet>
+            </apex:actionStatus>                               
+        </apex:pageBlockButtons>
+        <apex:outPutPanel layout="block" id="script-block">
+        <script>
+            var hasMessages = '{!hasError}';
+        </script>
+    </apex:outPutPanel>        
+    </apex:pageBlock>    
+</apex:form>
+
+</apex:page>

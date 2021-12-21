@@ -1,0 +1,18 @@
+<apex:page id="thePage" StandardController="Opportunity" tabstyle="Opportunity" showHeader="true">
+    <apex:tabPanel switchType="client" selectedTab="name2" id="theTabPanel">
+        <apex:tab label="Details" name="OppDetails" id="tabOne">
+            <apex:detail relatedList="false" title="true"/>
+        </apex:tab>        
+       <!-- <apex:tab label="Products" name="Products" id="tabTwo">
+            <apex:relatedList subject="{!Opportunity}" list="Product"/>
+        </apex:tab> -->
+        <apex:tab label="Open Activities" name="OpenActivities" 
+                id="tabOpenAct">
+         <apex:relatedList subject="{!Opportunity}" list="OpenActivities" />
+      </apex:tab>
+      <apex:tab label="Notes and Attachments" 
+                name="NotesAndAttachments" id="tabNoteAtt">
+         <apex:relatedList subject="{!Opportunity}" list="CombinedAttachments" />
+      </apex:tab>
+    </apex:tabPanel>
+</apex:page>

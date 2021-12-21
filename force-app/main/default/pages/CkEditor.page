@@ -1,0 +1,12 @@
+<apex:page id="thepageid">
+    <apex:includescript value="{!URLFOR($Resource.CkEditor, 'ckeditor/ckeditor.js')}" />
+    <script> 
+        window.onload = function(){
+            CKEDITOR.replace('thepageid:theformid:textAreaId'); 
+        }
+    </script>
+    <apex:form id="theformid">
+        <apex:inputTextarea id="textAreaId"/>
+    </apex:form>
+    
+</apex:page>

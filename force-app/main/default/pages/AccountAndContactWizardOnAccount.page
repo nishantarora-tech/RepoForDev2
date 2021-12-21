@@ -1,0 +1,32 @@
+<apex:page controller="createContractWizardController"  wizard="true">
+<apex:form >
+    <c:componentContract ></c:componentContract>
+    <apex:pageBlock rendered="{!flag}">
+        <apex:pageBlockSection >
+            <apex:inputField value="{!con.firstName}"/>
+            <apex:inputField value="{!con.lastName}"/>
+            <apex:inputField value="{!con.MobilePhone}"/>
+            <apex:inputField value="{!con.Phone}"/>
+            <apex:inputField value="{!con.Description}"/>
+            <apex:inputField value="{!con.Level__c}"/>
+        </apex:pageBlockSection> 
+        <apex:pageBlockButtons >
+            <apex:commandButton value="Save" action="{!oppSave}"/>            
+            <apex:commandButton value="Save & Close" action="{!oppSaveAndReturn}"/>            
+        </apex:pageBlockButtons>       
+    </apex:pageBlock>   
+    <apex:pageBlock rendered="{!!flag}">
+        <apex:pageBlockSection >
+            <apex:inputField value="{!opp.Name}"/>            
+            <apex:inputField value="{!opp.CloseDate}"/>
+            <apex:inputField value="{!opp.StageName}"/>
+            <apex:inputField value="{!opp.Email__c}"/>
+            <apex:inputField value="{!opp.Status__c}"/>                        
+        </apex:pageBlockSection>        
+        <apex:pageBlockButtons >
+            <apex:commandButton value="Save & Next" action="{!oppSave}"/>            
+            <apex:commandButton value="Save & Return" action="{!oppSaveAndReturn}"/>            
+        </apex:pageBlockButtons>
+    </apex:pageBlock> 
+</apex:form>
+</apex:page>

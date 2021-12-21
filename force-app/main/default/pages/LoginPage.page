@@ -1,0 +1,9 @@
+<apex:page tabStyle="Shopping__tab" sidebar="false">
+  <apex:form >      
+          <apex:outputLabel style="margin-left:700px;">Email or Phone</apex:outputLabel>
+          <apex:outputLabel style="margin-left:106px;">Password</apex:outputLabel><br/>                  
+          <apex:inputText id="user" style="margin-left:700px;"/>
+          <apex:inputText id="pass" style="margin-left:20px;"/>
+          <apex:commandButton value="Log in" style="margin-left:10px;"/>                             
+  </apex:form>
+</apex:page>

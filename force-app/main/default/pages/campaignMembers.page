@@ -1,0 +1,29 @@
+<apex:page controller="CampaignMembers" tabStyle="Account">
+  <apex:form >  
+       <apex:pageMessages ></apex:pageMessages>
+      <apex:pageBlock title="Search for campaign">
+          <apex:pageBlockSection columns="1">
+              <apex:pageBlockSectionItem >
+                  <apex:outputLabel for="acc">Campaign Search</apex:outputLabel>
+                  <apex:inputText id="acc" value="{!searchText}"/>
+              </apex:pageBlockSectionItem>                            
+          </apex:pageBlockSection>          
+          <apex:commandButton value="Search" />                            
+          <apex:pageBlockSection title="Records" collapsible="false" columns="1" id="pg" rendered="{!str}">                                                                 
+              <apex:pageBlock title="Members">
+                  <apex:pageBlockTable value="{!CampaignList}" var="ac">                      
+                      <apex:column > 
+                          <apex:facet name="header">Contact Name</apex:facet>
+                       {!ac.Contact.name}
+                      </apex:column>
+                      <apex:column > 
+                          <apex:facet name="header">Lead Name</apex:facet>
+                       {!ac.lead.name}
+                      </apex:column>
+                      <apex:column value="{!ac.status}"/>   
+                  </apex:pageBlockTable>
+              </apex:pageBlock>                                                          
+         </apex:pageBlockSection>
+      </apex:pageBlock>           
+  </apex:form>
+</apex:page>

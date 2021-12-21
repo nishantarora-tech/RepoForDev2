@@ -1,0 +1,26 @@
+<apex:page controller="AccountandContactSearch" tabStyle="Account">
+  <apex:form >  
+      <apex:pageMessages ></apex:pageMessages>
+      <apex:pageBlock title="Search for contacts Related to Account">
+          <apex:outputLabel for="acc">Account Search</apex:outputLabel>
+          <apex:inputText id="acc" value="{!searchText}">
+          </apex:inputText>
+          <apex:commandButton value="Search" action="{!searchAcc}"/>                    
+          <apex:pageBlockSection title="Records" collapsible="false" columns="1" id="pg" rendered="{!str}">                                                                 
+              <apex:pageBlock title="Accounts">
+                  <apex:pageBlockTable value="{!accList[0]}" var="ac">
+                      <apex:column value="{!ac.name}"/> 
+                      <apex:column value="{!ac.phone}"/>
+                      <apex:column value="{!ac.AnnualRevenue}"/>                                                                                             
+                  </apex:pageBlockTable>
+              </apex:pageBlock>           
+              <apex:pageBlock title="Related Contacts">
+                  <apex:pageBlockTable value="{!accList[0].contacts}" var="c" >                         
+                      <apex:column value="{!c.name}"/>
+                      <apex:column value="{!c.Email}"/>           
+                  </apex:pageBlockTable> 
+              </apex:pageBlock>                                     
+         </apex:pageBlockSection>
+      </apex:pageBlock>           
+  </apex:form>
+</apex:page>

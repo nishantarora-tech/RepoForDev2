@@ -1,0 +1,120 @@
+<apex:page tabStyle="Settings__tab" controller="CommunitiesUI_Controller" extensions="CommunitiesUI_Import" showHeader="true" sidebar="false">   
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+<meta http-equiv="X-UA-Compatible" content="IE=EmulateIE8" />
+<script>
+    $(document).ready(function(){
+        $('.bPageFooter').hide();
+    });
+</script>  
+    <body>               
+    <apex:form >    
+    <apex:pageMessages ></apex:pageMessages>
+        <apex:pageBlock >                                          
+            <!-- Section 1 -->                              
+            <apex:pageBlockSection collapsible="false" columns="4" title="Import into Vantiv CRM">                                                
+                <apex:outputLabel >Leads</apex:outputLabel>                
+                <apex:commandLink value="Additional specs for import" target="_blank" />                                                 
+                <apex:outputPanel >
+                    <apex:commandLink action="{!loginWSDL}" target="_blank" style="margin-left: 20px;">
+                        <apex:image url="{!$Resource.WSDL_Icon}" width="30" height="20"></apex:image>
+                    </apex:commandLink><br/>
+                    <apex:outputText value="(login wsdl)" style="margin-left: 10px;"/>
+                </apex:outputPanel>
+                <apex:outputPanel >
+                    <apex:commandLink action="{!importWSDL}"  target="__blank" style="margin-right: 80px;">
+                        <apex:image url="{!$Resource.WSDL_Icon}" width="30" height="20"></apex:image>                        
+                    </apex:commandLink> 
+                    <apex:outputText value="(max 1000 records)" />
+                 </apex:outputPanel>                                                             
+            </apex:pageBlockSection>            
+            <!-- Section 2 -->                     
+            <apex:pageBlockSection columns="4" collapsible="false" title="Export from Vantiv CRM">              
+                <!-- Leads -->
+                <apex:outputLabel >Leads</apex:outputLabel>
+                <apex:outputPanel >                                                  
+                    <apex:commandLink id="link1" action="{!leadExcel}" style="margin-left: 20px"> 
+                        <apex:image url="{!$Resource.Excel_Icon}" width="30" height="20"></apex:image>                        
+                    </apex:commandLink><br/>
+                    <apex:outputText value="(last 30 days)"/>
+                </apex:outputPanel>
+                <apex:outputPanel >                                                  
+                    <apex:commandLink id="link11" action="{!leadExcel}" style="margin-left: 20px"> 
+                        <apex:image url="{!$Resource.Excel_Icon}" width="30" height="20"></apex:image> 
+                        <apex:param value="60" assignTo="{!days}"/>                       
+                    </apex:commandLink><br/>
+                    <apex:outputText value="(last 60 days)"/>
+                </apex:outputPanel>                
+                <apex:outputPanel >                              
+                    <apex:commandLink target="_blank" action="{!exportWSDL}"  style="margin-right: 105px">  
+                        <apex:image url="{!$Resource.WSDL_Icon}" width="30" height="20"></apex:image>                        
+                    </apex:commandLink><br/>
+                    <apex:outputText value="(last 60 days)"/>
+                </apex:outputPanel>
+                <!-- Accounts-->                               
+                <apex:outputLabel >Accounts</apex:outputLabel>
+                <apex:outputPanel >                
+                    <apex:commandLink id="link2" action="{!accountExcel}" style="margin-left: 20px"> 
+                        <apex:image id="img" url="{!$Resource.Excel_Icon}" width="30" height="20"/>
+                    </apex:commandLink><br/>
+                    <apex:outputText value="(last 30 days)"/>
+                </apex:outputPanel>                 
+                <apex:outputPanel >                
+                    <apex:commandLink id="link21" action="{!accountExcel}" style="margin-left: 20px"> 
+                        <apex:image id="img1" url="{!$Resource.Excel_Icon}" width="30" height="20"/>
+                        <apex:param value="60" assignTo="{!days}"/>
+                    </apex:commandLink><br/>
+                    <apex:outputText value="(last 60 days)"/>
+                </apex:outputPanel>                                                                              
+                <apex:outputPanel >                              
+                    <apex:commandLink target="_blank" action="{!exportWSDL}">  
+                        <apex:image url="{!$Resource.WSDL_Icon}" width="30" height="20"></apex:image>                        
+                    </apex:commandLink> <br/>
+                    <apex:outputText value="(last 60 days)" />
+                </apex:outputPanel>                                                                                                                                          
+                <!-- Contacts--> 
+                <apex:outputLabel >Contacts</apex:outputLabel>
+                <apex:outputPanel >
+                    <apex:commandLink id="link3" action="{!contactExcel}" style="margin-left: 20px"> 
+                        <apex:image url="{!$Resource.Excel_Icon}" width="30" height="20"/>
+                    </apex:commandLink>  <br/>
+                    <apex:outputText value="(last 30 days)"/>
+                </apex:outputPanel>
+                <apex:outputPanel >
+                    <apex:commandLink id="link31" action="{!contactExcel}" style="margin-left: 20px"> 
+                        <apex:image id="img3" url="{!$Resource.Excel_Icon}" width="30" height="20"/>
+                        <apex:param value="60" assignTo="{!days}"/>
+                    </apex:commandLink>  <br/>
+                    <apex:outputText value="(last 60 days)"/>
+                </apex:outputPanel>                             
+                <apex:outputPanel >                              
+                    <apex:commandLink target="_blank" action="{!exportWSDL}">  
+                        <apex:image url="{!$Resource.WSDL_Icon}" width="30" height="20"></apex:image>                        
+                    </apex:commandLink> <br/>
+                    <apex:outputText value="(last 60 days)" />
+                </apex:outputPanel>
+                <!-- Opportunities--> 
+                <apex:outputLabel >Opportunities</apex:outputLabel>
+                <apex:outputPanel >
+                    <apex:commandLink id="link4" action="{!oppExcel}" style="margin-left: 20px"> 
+                        <apex:image url="{!$Resource.Excel_Icon}" width="30" height="20"/>                        
+                    </apex:commandLink> <br/>
+                    <apex:outputText value="(last 30 days)"/>
+                </apex:outputPanel>
+                <apex:outputPanel >
+                    <apex:commandLink id="link41" action="{!oppExcel}" style="margin-left: 20px"> 
+                        <apex:image id="img4" url="{!$Resource.Excel_Icon}" width="30" height="20"/>
+                        <apex:param value="60" assignTo="{!days}"/>
+                    </apex:commandLink>   <br/>
+                    <apex:outputText value="(last 60 days)"/>
+                </apex:outputPanel>                            
+               <apex:outputPanel >                              
+                    <apex:commandLink target="_blank" action="{!exportWSDL}">  
+                        <apex:image url="{!$Resource.WSDL_Icon}" width="30" height="20"></apex:image>                        
+                    </apex:commandLink> <br/>
+                    <apex:outputText value="(last 60 days)" />
+                </apex:outputPanel>                       
+            </apex:pageBlockSection>            
+        </apex:pageBlock>
+    </apex:form>
+    </body>
+</apex:page>

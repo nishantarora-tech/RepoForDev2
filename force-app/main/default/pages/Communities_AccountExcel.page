@@ -1,0 +1,18 @@
+<apex:page controller="CommunitiesUI_Controller" showHeader="false" Sidebar="false" cache="true" contentType="application/vnd.ms-excel#AccountRecords{!today()}.xls" >       
+    <apex:pageBlock >
+        <apex:pageBlockTable value="{!accList}" var="acc" border="1px" style="width:100%;border:1px solid #000000;">
+            <apex:column value="{!acc.name}" style="text-align:center;"/>            
+            <apex:column style="text-align:center;">
+                <apex:facet name="header">Owner</apex:facet> 
+                {!acc.owner.name}
+            </apex:column>                      
+            <apex:column value="{!acc.Type}" style="text-align:center;"/>
+            <apex:column value="{!acc.Website}" style="text-align:center;"/>
+            <apex:column value="{!acc.NumberOfEmployees}" style="text-align:center;"/>
+            <apex:column value="{!acc.Ownership}" style="text-align:center;"/>
+            <apex:column value="{!acc.fax}" style="text-align:center;"/>
+            <apex:column value="{!acc.Phone}" style="text-align:center;"/>            
+            <apex:column value="{!acc.CreatedDate}" style="text-align:center;"/>
+        </apex:pageBlockTable>
+    </apex:pageBlock>           
+</apex:page>

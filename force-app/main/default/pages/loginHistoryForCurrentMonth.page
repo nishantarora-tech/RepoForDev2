@@ -1,0 +1,32 @@
+<apex:page controller="loginHistoryForCurrentMonthController">
+    <apex:stylesheet value="{!URLFOR($Resource.SLDS, 'assets/styles/salesforce-lightning-design-system.css')}" />
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>    
+    <script>         
+        $(document).ready(function(){
+            $('.bPageFooter').hide();
+        });  
+        function searchHistory(){
+            var name = document.getElementById('searchId').value;                                   
+            callLoginHistoryMethod(name);
+        }                                
+    </script>        
+    <apex:form id="frm" styleClass="slds-form--stacked">
+        <apex:pageMessages ></apex:pageMessages>
+        <apex:actionFunction name="callLoginHistoryMethod" action="{!loginHistory}" rerender="frm">
+            <apex:param id="abc" name="userN" value="" />
+        </apex:actionFunction>       
+        <fieldset class="slds-box slds-theme--default slds-container--medium">
+            <legend class="slds-text-heading--large slds-p-vertical--medium">Search for User's Login History</legend>
+                <div class="slds-form-element">
+                    <div class="slds-form-element__control">
+                        <input id="searchId" class="slds-input" type="text" placeholder="Enter a username..."/>                                               
+                        <button class="slds-button slds-button--brand slds-m-top--medium" type="button" onclick="searchHistory()">Search</button>
+                    </div>
+                </div>            
+            </fieldset>
+            <!--apex:pageBlock id="pgBlock" rendered="{!if(AND(Not(isBlank(totalRecords)),totalRecords > 0) ,true,false)}"-->
+            <apex:pageBlock id="pgBlock" rendered="{!totalRecords != 0}">
+                <apex:outputText >You have logged in {!totalRecords} times in this month</apex:outputText>
+            </apex:pageBlock>                        
+    </apex:form>
+</apex:page>

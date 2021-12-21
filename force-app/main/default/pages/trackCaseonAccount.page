@@ -1,0 +1,12 @@
+<apex:page standardController="Account" extensions="trackCaseOnAccountController">
+<apex:form >
+    <apex:pageBlock >
+        <apex:pageBlockTable value="{!caseMap}" var="case">
+            <apex:column value="{!case}"/>
+            <apex:repeat value="{!caseMap[case]}" var="cs">
+                <apex:column value="{!cs}"/>
+            </apex:repeat>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+</apex:form>
+</apex:page>

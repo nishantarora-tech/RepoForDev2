@@ -1,0 +1,20 @@
+<apex:page controller="EncryptionController">
+    <apex:form >
+        <apex:pageBlock id="abc">
+            <apex:pageBlockButtons rendered="{!lstFieldName.size>0}">
+                <apex:commandButton value="Encrypt" action="{!encryptSelectedFields}"/>
+            </apex:pageBlockButtons>
+            <apex:SelectList value="{!selectedObj}" size="1">
+                <apex:selectOptions value="{!Name}"/>
+                <apex:actionSupport event="onchange" action="{!showFields}" reRender="abc">                    
+                </apex:actionSupport>                
+            </apex:SelectList>
+            <apex:pageBlockTable id="pbTable" value="{!lstFieldName}" var="fieldObj" rendered="{!lstFieldName.size>0}"> 
+                <apex:column headerValue="Name" value="{!fieldObj.fieldName}"/>               
+                <apex:column >
+                    <apex:inputCheckbox value="{!fieldObj.selected}"/> 
+                </apex:column>              
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

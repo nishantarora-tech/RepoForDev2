@@ -1,0 +1,6 @@
+<apex:page >
+    <apex:outputLink value="{!URLFOR($Action.Attachment.Download,
+                      '00P90000017Wh5r')}">
+      Download Now!
+    </apex:outputLink>
+</apex:page>

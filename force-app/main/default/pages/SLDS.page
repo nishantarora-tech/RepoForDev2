@@ -1,0 +1,10 @@
+<apex:page >
+    <style>
+    
+    </style>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <apex:stylesheet value="{!URLFOR($Resource.SLDS, 'assets/styles/salesforce-lightning-design-system.css')}" />
+    <body>        
+        <div class="panelHeader">Developer Utilties</div>        
+    </body>    
+</apex:page>

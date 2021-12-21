@@ -1,0 +1,68 @@
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+<div class="row">
+  <div class="column">
+    <div class="card">
+      <div class="panel-heading" >
+		 <h5 class="">5.5 Months/1.32x</h5>
+	  </div>
+      <ul style="list-style-type: none; padding: 0px; margin: 0px">
+    	<li class="border-li"><b style="font-size: x-large" >$17,863<br></br></b>Advance</li>
+    	<li class="border-li"><b class="">$23,579.60</b><br></br>Payback Amt</li>
+    	<li class="border-li"><b class="">$214.36/110</b> <br></br> DP/# of Days</li>
+    	<li class="border-li"><b class="">0<span style="font-size: smaller">%</span>/$0</b> <br></br> Comm %/Comm $</li>
+	  </ul>
+      <div class="panel-footer" style="padding: 10px;">
+		<a style="white-space: normal;" class="btn  btn-block  btn-warning" href="#" ng-click="acceptDeal(deal)" data-toggle="modal" data-target="#fsModal">Accept Offer</a>
+	  </div>
+    </div>
+  </div>
+  <div class="column">
+    <div class="card">
+      <div class="panel-heading" >
+		 <h5 class="">5.5 Months/1.32x</h5>
+	  </div>
+      <ul style="list-style-type: none; padding: 0px; margin: 0px">
+    	<li class="border-li"><b style="font-size: x-large" >$17,863<br></br></b>Advance</li>
+    	<li class="border-li"><b class="">$23,579.60</b><br></br>Payback Amt</li>
+    	<li class="border-li"><b class="">$214.36/110</b> <br></br> DP/# of Days</li>
+    	<li class="border-li"><b class="">0<span style="font-size: smaller">%</span>/$0</b> <br></br> Comm %/Comm $</li>
+	  </ul>
+      <div class="panel-footer" style="padding: 10px;">
+		<a style="white-space: normal;" class="btn  btn-block  btn-warning" href="#" ng-click="acceptDeal(deal)" data-toggle="modal" data-target="#fsModal">Accept Offer</a>
+	  </div>
+    </div>
+  </div>
+  <div class="column">
+    <div class="card">
+      <div class="panel-heading" >
+		 <h5 class="">5.5 Months/1.32x</h5>
+	  </div>
+      <ul style="list-style-type: none; padding: 0px; margin: 0px">
+    	<li class="border-li"><b style="font-size: x-large" >$17,863<br></br></b>Advance</li>
+    	<li class="border-li"><b class="">$23,579.60</b><br></br>Payback Amt</li>
+    	<li class="border-li"><b class="">$214.36/110</b> <br></br> DP/# of Days</li>
+    	<li class="border-li"><b class="">0<span style="font-size: smaller">%</span>/$0</b> <br></br> Comm %/Comm $</li>
+	  </ul>
+      <div class="panel-footer" style="padding: 10px;">
+		<a style="white-space: normal;" class="btn  btn-block  btn-warning" href="#" ng-click="" data-toggle="modal" data-target="#fsModal">Accept Offer</a>
+	  </div>
+    </div>
+  </div>
+  <div class="column">
+    <div class="card">
+      <div class="panel-heading" >
+		 <h5 class="">5.5 Months/1.32x</h5>
+	  </div>
+      <ul style="list-style-type: none; padding: 0px; margin: 0px">
+    	<li class="border-li"><b style="font-size: x-large" >$17,863<br></br></b>Advance</li>
+    	<li class="border-li"><b class="">$23,579.60</b><br></br>Payback Amt</li>
+    	<li class="border-li"><b class="">$214.36/110</b> <br></br> DP/# of Days</li>
+    	<li class="border-li"><b class="">0<span style="font-size: smaller">%</span>/$0</b> <br></br> Comm %/Comm $</li>
+	  </ul>
+      <div class="panel-footer" style="padding: 10px;">
+		<a style="white-space: normal;" class="btn  btn-block  btn-warning" href="#" ng-click="acceptDeal(deal)" data-toggle="modal" data-target="#fsModal">Accept Offer</a>
+	  </div>
+    </div>
+  </div>
+</div>
+</aura:component>

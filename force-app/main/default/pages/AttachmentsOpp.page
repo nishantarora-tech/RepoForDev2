@@ -1,0 +1,32 @@
+<apex:page standardController="Opportunity" extensions="attachmentCustomRealatedList_Controller">
+    <script type="text/javascript">
+        function confirmDelete(attachmentName){                        
+            if(confirm('Are you sure?')){                                                                
+                delFun(attachmentName);                                                                
+            }                            
+        }
+    </script>
+    <apex:form >        
+        <apex:actionFunction id="func" name="delFun" action="{!deleteAttachments}" reRender="pgBlock">
+            <apex:param id="par" name="att" value="" assignTo="{!attachmentName}"/>                                                                                           
+        </apex:actionFunction>
+        <apex:pageBlock id="pgBlock">                        
+            <apex:pageBlockButtons id="buttons" location="Top">              
+                <apex:commandButton value="Attach File" action="{!attachFile}"/>
+                <apex:commandButton value="Update Status"/>
+            </apex:pageBlockButtons>                                 
+            <apex:pageBlockTable id="pgTable" value="{!attachList}" var="attach" rendered="{!If(attachList.size > 0 ,true,false)}">                                
+                <apex:column headerValue="Action">                                       
+                    <apex:commandLink id="link" value="Delete" onclick="return confirmDelete('{!attach.name}');" >                                                 
+                    </apex:commandLink>&nbsp;                    
+                    <apex:commandLink value="View" action="{!view}">
+                        <apex:param name="p" value="{!attach.name}" assignTo="{!attachmentName}"/>
+                    </apex:commandLink>
+                </apex:column>
+                <apex:column value="{!attach.ContentType}"/>
+                <apex:column value="{!attach.Name}" /> 
+                <apex:column value="{!attach.CreatedById}"/>                                       
+            </apex:pageBlockTable>
+        </apex:pageBlock>            
+    </apex:form>
+</apex:page>

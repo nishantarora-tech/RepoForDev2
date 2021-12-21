@@ -1,0 +1,12 @@
+<apex:page standardController="Opportunity" sidebar="false">
+    <apex:form >
+        <apex:pageBlock >
+            <apex:pageBlockSection >
+                <apex:outputField value="{!Opportunity.DocuSign_Name__c}"/>
+                <apex:outputField value="{!Opportunity.DocuSign_Email__c}"/>
+                <apex:outputField value="{!Opportunity.DocuSign_Phone__c}"/>
+                <apex:outputField value="{!Opportunity.DocuSign_Date__c}"/>
+            </apex:pageBlockSection> 
+        </apex:pageBlock>     
+    </apex:form>
+</apex:page>

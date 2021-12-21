@@ -1,0 +1,27 @@
+<apex:page standardController="Contract" extensions="contentVersionController">
+<apex:form >
+    <apex:pageBlock >
+    <apex:pageMessages ></apex:pageMessages>
+        <apex:pageBlockSection columns="1">
+            <apex:outputField value="{!cont.ContractNumber}"/>
+            <apex:outputField value="{!cont.ContractTerm}"/>
+            <apex:outputField value="{!cont.Total_Content_Version_on_Contract__c}"/>
+            <apex:pageBlockSectionItem >                
+                <apex:outputLabel for="title">Enter Title for Content Version</apex:outputLabel>
+                <apex:outputPanel layout="block" styleClass="requiredInput">                    
+                    <apex:outputpanel layout="block" styleClass="requiredBlock"></apex:outputpanel>                                       
+                        <apex:inputText id="title" value="{!title}"/>  
+                </apex:outputPanel>                            
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel for="photo">Select File</apex:outputLabel>
+                <apex:inputFile id="photo" fileName="{!contVer.pathOnClient}" value="{!photo}"></apex:inputFile>
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+        <apex:pageBlockButtons >
+            <apex:commandButton value="Save" action="{!save}"/>
+            <apex:commandButton value="Cancel" action="{!cancel}"/>
+        </apex:pageBlockButtons>
+    </apex:pageBlock>
+</apex:form>
+</apex:page>

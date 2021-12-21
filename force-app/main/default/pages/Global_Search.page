@@ -1,0 +1,10 @@
+<apex:page >
+<h1>Global Data Search</h1>
+<apex:form id="form">
+  <apex:pageMessages id="Msg"></apex:pageMessages>
+  <apex:pageBlock Id="pb">
+  <apex:inputText id="search" />
+  <apex:commandButton value="Search"/>
+  </apex:pageBlock>
+  </apex:form>
+</apex:page>

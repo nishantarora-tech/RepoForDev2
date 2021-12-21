@@ -1,0 +1,77 @@
+<apex:page id="thePageId" controller="ComposeMailController" tabStyle="Account" > 
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"/>  
+    <apex:includescript value="{!URLFOR($Resource.CkEditor, 'ckeditor/ckeditor.js')}" /> 
+    <script> 
+        $(document).ready(function (){
+           $('.bPageFooter').hide();
+           CKEDITOR.replace('thePageId:theformid:pgBlock:theSection:textAreaSection:textArea'); 
+           $("a").click(function(){                                            
+                textAreaRerender();
+            });           
+        }); 
+                             
+    </script>     
+    <style>  
+        a{
+            text-decoration : underline;
+        }             
+        .imgClass{
+            position: absolute;
+            padding: 15px;
+            left: 3px;            
+        }                      
+    </style>    
+    <apex:form id="theformid">
+        <apex:pageMessages />
+        <img class="imgClass" src="/img/icon/mail32.png"/><apex:sectionHeader subtitle="Send an Email"  title="Email Message"/>
+        <apex:actionFunction name="textAreaRerender" reRender="textAreaSection"/>                           
+        <apex:pageBlock id="pgBlock" rendered="{!!flag}">
+            <apex:pageBlockSection id="theSection" columns="1" title="Edit Email" collapsible="false" >                               
+                    <apex:pageBlockSectionItem id="item" dataStyle="font-weight: bold;">
+                        <apex:outputLabel >Email Format</apex:outputLabel> 
+                        <apex:actionRegion renderRegionOnly="false" > 
+                            <apex:outputText id="abc" >HTML</apex:outputText>&nbsp;
+                            <a>{!changeBodyStyle}</a>                                                                                                                                                                                                            
+                        </apex:actionRegion>
+                    </apex:pageBlockSectionItem>                                                                         
+                <apex:pageBlockSectionItem >
+                    From                  
+                    <apex:outputText value="{!emailAddObj.Address}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem helpText="Use comma for more than one toAddress" >
+                    To
+                    <apex:inputText value="{!toAdd}" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem helpText="Use comma for more than one ccAddress" >
+                    <apex:outputLabel value="CC:" style="text-decoration: underline;"/>
+                    <apex:inputText value="{!ccAdd}" />
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="subjectItem">
+                    <apex:outputLabel value="Subject"/>
+                    <apex:outputpanel layout="block" styleClass="requiredInput">
+                        <apex:outputpanel styleClass="requiredBlock"/>
+                        <apex:inputText id="subjectText" value="{!Subject}" required="true" style="width:400px;"/>
+                    </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="textAreaSection" dataStyle="cursor : pointer;padding :6px">
+                  Email Body     
+                    <apex:inputTextarea id="textArea" richtext="false" value="{!body}" />        
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem id="file" dataStyle="cursor : pointer;position:absolute;">                  
+                    <apex:outputLabel value="File Attachment"/>
+                    <apex:outputPanel layout="block" styleClass="requiredInput">
+                        <apex:outputPanel layout="block" styleClass="requiredBlock"/>
+                        <!--apex:inputFile id="fileId" required="true" fileName="{!attachObj.name}" value="{!attachObj.body}" /-->
+                        <input type="file" name="file"/>   
+                    </apex:outputPanel>                 
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>            
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Send" action="{!sendEmail}"/>                
+            </apex:pageBlockButtons>
+        </apex:pageBlock>               
+        <apex:pageBlock rendered="{!flag}">
+            <apex:pageMessage severity="Confirm">Email has been sent to {!toAdd}</apex:pageMessage>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

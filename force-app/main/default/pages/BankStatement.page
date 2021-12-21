@@ -1,0 +1,26 @@
+<apex:page controller="BankStatementController">
+    <apex:form id="form">    
+        <apex:pageBlock title="Bank Statement" id="pbBlock">
+        <apex:pageMessages ></apex:pageMessages>            
+            <apex:actionRegion >
+                <apex:pageBlockTable id="pb" value="{!bankStatementWrapperList}" var="page">                 
+                        <apex:column headerValue="Month">
+                            <apex:inputField value="{!page.bankObj.Month__c}"/>
+                        </apex:column>
+                        <apex:column headerValue="Deposits">
+                            <apex:inputField value="{!page.bankObj.Deposits__c}"/>
+                        </apex:column> 
+                                                
+                    <apex:column headerValue="Action">
+                        <apex:commandLink style="text-decoration:none;padding:4px 4px;border:none;color:white;background-color: #4CAF50;"
+                         value="Save/Update" action="{!saveOrUpdateRecord}" reRender="pbBlock">
+                            <!--<apex:actionSupport event="onclick" reRender="form">-->
+                                <apex:param name="index" value="{!page.counterWrap}"/> 
+                            <!--</apex:actionSupport>-->
+                        </apex:commandLink>                     
+                    </apex:column>
+                </apex:pageBlockTable> 
+            </apex:actionRegion>                        
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

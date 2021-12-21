@@ -1,0 +1,28 @@
+<apex:page controller="AccountDeletionController">
+<apex:form >
+    <apex:pageBlock id="blck">
+    <apex:pageMessages ></apex:pageMessages>
+        <apex:pageBlockButtons >
+            <apex:commandButton value="Delete"  action="{!deleteAccount}" oncomplete="location.reload()">            
+            </apex:commandButton>
+        </apex:pageBlockButtons>
+        <apex:pageBlockSection columns="2">
+            <apex:pageBlockTable id="table" value="{!wrapperList}" var="wrp" style="width:70%">
+                <apex:column > 
+                    <apex:facet name="header">
+                    Account Name
+                    </apex:facet>
+                    <apex:commandLink value="{!wrp.acc.name}" reRender="blck">
+                        <apex:param name="account" value="{!wrp.acc.id}" assignTo="{!accountId}"/>
+                        <apex:param name="link" value="true" assignTo="{!wrp.selected}"/>                       
+                    </apex:commandLink>          
+                </apex:column>
+                <apex:column >
+                    <apex:inputCheckbox value="{!wrp.selected}"/>
+                </apex:column>            
+            </apex:pageBlockTable> 
+            <apex:detail id="acc" subject="{!accountId}" relatedList="true" title="false"/>
+        </apex:pageBlockSection>           
+    </apex:pageBlock>
+</apex:form> 
+</apex:page>

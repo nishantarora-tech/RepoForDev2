@@ -1,0 +1,58 @@
+<apex:page standardController="Account" extensions="AccountContactInfoController" sidebar="false">
+<apex:form id="Account">
+    <apex:pageBlock title="Salesforce Account Management" rendered="{!!flag1}">
+        <apex:pageBlockSection collapsible="true" columns="2">
+            <apex:inputField value="{!Acc.Name}"/>  
+            <apex:inputField value="{!Acc.Unique_ID__c}"/>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel for="name">Account Owner</apex:outputLabel>
+                <apex:outputText id="name" value="{!$User.FirstName} {!$User.LastName}"/>     
+            </apex:pageBlockSectionItem>
+            <apex:inputField value="{!Acc.Email__c}"/>
+            <apex:inputField value="{!Acc.Address__c}"/>
+            <apex:inputField value="{!Acc.Date__c}"/>
+        </apex:pageBlockSection>
+        <apex:pageBlockButtons location="bottom">
+            <apex:commandButton value="Add Contact" action="{!add}"/>
+            <apex:commandButton value="Clear" action="{!clear}" immediate="true"/>      
+        </apex:pageBlockButtons>
+    </apex:pageBlock>
+</apex:form>
+<apex:form >
+    <apex:pageBlock id="table" title="Contacts" rendered="{!flag1}">
+        <apex:variable var="rowNum" value="{!0}"  />
+        <apex:pageBlockSection collapsible="true" columns="2" >      
+            <apex:outputText value="{!Account.Name}">          
+            </apex:outputText>            
+            <apex:inputField value="{!con.LastName}"/>        
+            <apex:inputField value="{!con.Email}"/>                           
+            <apex:inputField value="{!con.Phone}"/>       
+            <apex:inputField value="{!con.Address__c}"/>         
+        </apex:pageBlockSection>
+        <apex:pageBlockButtons location="bottom">
+            <apex:commandButton value="Add More" action="{!addMore}"/>       
+            <apex:commandButton value="Finish" action="{!save}" />
+            <apex:commandButton value="Cancel" action="{!cancel}"/>                
+        </apex:pageBlockButtons>  
+        <apex:pageBlockSection collapsible="true" rendered="{!flag2}">
+          <apex:facet name="header">
+                <span style="color:white"> Contact Data Table </span>            
+          </apex:facet> 
+          <apex:pageBlockTable id="ContactTable" value="{!lstContact}" var="cntct">
+              <apex:column value="{!cntct.LastName}"/>
+              <apex:column value="{!cntct.Email}"/>
+              <apex:column value="{!cntct.Phone}"/>
+              <apex:column value="{!cntct.Address__c}"/>
+              <apex:column headerValue="Delete Record"> 
+              <apex:actionRegion id="delId">
+                  <apex:commandLink value="Del" action="{!RemoveItems}" immediate="true" reRender="table,ContactTable" rendered="{!lstContact.size>0}">
+                      <apex:param value="{!rowNum}" name="index" />
+                  </apex:commandLink>
+              </apex:actionRegion>
+              <apex:variable var="rowNum" value="{!rowNum+1}"/>                    
+              </apex:column>
+          </apex:pageBlockTable>
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+</apex:form>
+</apex:page>

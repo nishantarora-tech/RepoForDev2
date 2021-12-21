@@ -1,0 +1,8 @@
+<apex:page contentType="text/plain">
+User-agent: *
+Disallow: / # hides everything from ALL bots
+Allow: /<path-prefix-1/>/s # add path you want to open to bots
+Allow: /<path-prefix-2/>/s # add path you want to open to bots
+Sitemap: http://community_URL/>/<sitemap_to_community1/>
+Sitemap: http://<community_URL/>/<sitemap_to_community2/>
+</apex:page>

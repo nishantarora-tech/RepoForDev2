@@ -1,0 +1,43 @@
+<apex:page standardController="Lead" extensions="LeadConversionContExt"> 
+    <style>  
+    .hideDropdown select{
+        visibility: hidden;
+        display: block;
+    }    
+    </style>
+    <apex:form >
+        <apex:sectionHeader title="Convert Lead" subtitle="{!leadObj.name}"/>
+        <apex:pageBlock >
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Convert" action="{!convertLead}"/>
+                <apex:commandButton value="Cancel" action="{!cancel}"/>
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection columns="1" title="Convert Lead" collapsible="false">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel for="owner" value="Record Owner"></apex:outputLabel>
+                    <apex:inputField id="owner" value="{!leadObj.ownerId}"/>
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel for="owner" value="Account Name"></apex:outputLabel>
+                    <apex:outputPanel styleClass="requiredInput" layout="block">
+                        <apex:outputPanel styleClass="requiredBlock" layout="block"/>  
+                        <apex:inputText value="{!Accountname}"/> 
+                   </apex:outputPanel> 
+                </apex:pageBlockSectionItem>                  
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel for="oppName" style="font-weight:bold" value="Opportunity Name"></apex:outputLabel>
+                    <apex:outputPanel styleClass="requiredInput" layout="block">
+                        <apex:outputPanel styleClass="requiredBlock" layout="block"/>
+                        <apex:inputText id="oppName" value="{!leadObj.company}"/><br/>                        
+                        <apex:inputCheckbox id="checkbox"/>
+                        <apex:outputText >Do not create a new opportunity upon conversion.</apex:outputText>
+                    </apex:outputPanel>                  
+                </apex:pageBlockSectionItem>
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel for="status" value="Converted Status"></apex:outputLabel>
+                    <apex:inputField id="status" value="{!leadObj.Status}"/>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>            
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

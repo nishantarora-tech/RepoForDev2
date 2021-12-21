@@ -1,0 +1,4 @@
+<apex:page >
+
+    <apex:iframe src="/servlet/servlet.ChartServer?rsid=0FL90000002kV31&ruid=00590000002G2Fz&did=01Z90000000Ax3h&s=7&fs=10&tfg=12&tfs=-16777216&explode=0&c=donut&cs=0&title=&eh=no&compo=yes&fg=-16777216&bg1=-1&bg2=-1&bgdir=2&dl1=Member%3A+Department&dl2=&l=2&sax=yes&Yman=no&nc=0&actUrl=%2F00O90000008kfUn&sd=1&scv=yes&sct=no&spt=no&bd=yes&cu=INR&ab=X&u=0&vt=0&ab2=Y&u2=0&vt2=0&vl0=%23+Group+Members&spoc=no&topn=no&gc0=-1&gc1=-1&gc2=-1&sona=0&refreshts=1466256902000" frameborder="false" height="240"/>
+</apex:page>

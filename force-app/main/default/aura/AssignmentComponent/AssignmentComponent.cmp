@@ -1,0 +1,30 @@
+<aura:component implements="force:appHostable" >  
+    <!--<form>-->
+        <!--<div>
+            <div class="myclass1">
+                abcd<br></br>
+                <div>abcd</div>
+            </div>
+            <div class="myclass2">
+                abcd<br></br>
+                <div>abcd</div>
+            </div>
+    	<div >
+     		<ui:button class="btn"  label="Submit" ></ui:button><br></br> 
+        </div>-->
+       <!-- </div>
+        <div>  -->        
+            <lightning:input aura:id="name" type="text" name="input1" label="Name" />            
+            <lightning:input  aura:id="number" type="Number" name="input1" label="Account Number" />            
+            <lightning:input aura:id="date" type="date" name="input1" label="SLA Expiration Date" />            
+            <lightning:select aura:id="source" name="input1" label="Account Source" >
+                <option value="">-- Select a Account Source --</option>
+                <option value="Web" text="Web"/>
+                <option value="Phone Inquiry" text="Phone Inquiry"/>
+                <option value="Other" text="Other"/>
+            </lightning:select> 
+           
+            <lightning:button variant="brand" label="Save Account"></lightning:button>          
+        <!--</div>-->
+   <!-- </form>-->
+</aura:component>

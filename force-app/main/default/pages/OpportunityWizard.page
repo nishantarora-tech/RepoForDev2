@@ -1,0 +1,24 @@
+<apex:page controller="OpportunityWizardController" wizard="true">
+  <style>
+   table{ 
+       width:100%;
+    }
+    
+  </style>
+  <apex:form >
+      <apex:pageBlock >
+          <table>                                
+                  <tr>
+                      <apex:commandLink value="Contact Information"/><br/>
+                      <apex:commandLink value="Merchant Information"/>
+                  </tr>   
+                  <tr>
+                      <apex:pageBlockSection >
+                          <apex:inputField value="{!con.firstName}"/>
+                      </apex:pageBlockSection>
+                  </tr>                                           
+                                                    
+          </table>
+      </apex:pageBlock>
+  </apex:form>
+</apex:page>

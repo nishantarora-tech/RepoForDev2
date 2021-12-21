@@ -1,0 +1,5 @@
+<apex:page controller="StudentRecordController">
+    <apex:form >
+        <apex:pageMessage severity="Info" summary="Your details has been successfully submitted. Your roll number is {!studentObj.name} and class is {!selectedClass}"></apex:pageMessage>        
+    </apex:form>
+</apex:page>

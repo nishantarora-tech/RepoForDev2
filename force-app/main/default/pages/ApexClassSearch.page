@@ -1,0 +1,17 @@
+<apex:page controller="ApexClassSearchController" sidebar="false">
+   
+    <apex:stylesheet value="{!URLFOR($Resource.SLDS, 'assets/styles/salesforce-lightning-design-system.css')}" />
+    <apex:form >
+        <apex:pageBlock title="Search for Apex Class">
+            <apex:inputText value="{!searchApex}" style="font-size: 13px;"  onclick="if(this.value == 'Search....'){this.value ='';}"/>
+            <apex:commandButton value="Search" action="{!search}" />
+            <apex:pageBlockTable value="{!apexObjList}" var="apexObj" rendered="{!apexObjList.size >0}">            
+                <apex:column headerValue="Name" >                
+                    <apex:commandLink value="{!apexObj.name}" target="_blank" action="{!redirectToApexClass}">
+                        <apex:param name="apexId" value="{!apexObj.id}" assignTo="{!selectedClassId}"/>
+                    </apex:commandLink>
+                </apex:column>                
+            </apex:pageBlockTable>
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

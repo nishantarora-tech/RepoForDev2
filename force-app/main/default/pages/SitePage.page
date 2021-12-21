@@ -1,0 +1,15 @@
+<apex:page standardController="Case" extensions="caseController" >
+ <apex:form >
+<apex:pageblock >
+  <apex:inputField value="{!Case.Status}"/>
+  <apex:inputField value="{!Case.Subject}"/>
+  <apex:inputField value="{!Case.Reason}"/>
+   <apex:pageBlockTable value="{!caseList}" var="c"> 
+    <apex:column value="{!c.status}"/>
+    <apex:column value="{!c.priority}"/>
+    </apex:pageBlockTable>
+  <apex:commandButton value="Save" action="{!save}"/>
+ </apex:pageblock>
+ </apex:form>
+ 
+</apex:page>

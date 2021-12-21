@@ -1,0 +1,17 @@
+<apex:page standardController="product2" extensions="ProductManagementController" sidebar="false">
+<apex:form id="product">
+<apex:pageBlock title="Salesforce Product Management" >
+  <apex:pageBlockSection id="pbBlock" collapsible="true" columns="2">       
+      <apex:inputField value="{!Prod.Name}" required="false"/> 
+      <apex:inputField value="{!Prod.productCode}"/>                                
+      <apex:inputField value="{!Prod.Date__c}" required="true"/>          
+      <apex:inputField value="{!Prod.Family}" required="true"/>       
+      <apex:inputField value="{!Prod.Description}"/>                                
+  </apex:pageBlockSection>                      
+  <apex:pageBlockButtons location="bottom">
+      <apex:commandButton value="Add Product" action="{!save}" />
+      <apex:commandButton value="Clear" action="{!clear}" reRender="pbBlock" />      
+  </apex:pageBlockButtons>
+</apex:pageBlock>
+</apex:form>
+</apex:page>

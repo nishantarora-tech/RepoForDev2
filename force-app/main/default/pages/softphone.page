@@ -1,0 +1,43 @@
+<apex:page showHeader="false">
+    <apex:includeScript value="/support/console/30.0/integration.js"/>
+    <style>
+    body {background-color:white;}
+    </style>
+    <script>
+        var isClickToDialEnabled = false;        
+        var enableClickToDialCallback = function (response) {
+            isClickToDialEnabled = true;
+        };
+        var disableClickToDialCallback = function (response) {
+            isClickToDialEnabled = false;
+        };
+        function toggleClickToDial() {
+        if (isClickToDialEnabled) {        
+            sforce.interaction.cti.disableClickToDial(disableClickToDialCallback);
+        } else {
+            sforce.interaction.cti.enableClickToDial(enableClickToDialCallback);
+        }
+        }
+        var screenPopCallback = function (response) {
+            if (response.result) {
+            alert('Screen pop was set successfully.');
+            } else {
+            alert('Screen pop failed.' + result.error);
+            }
+        };
+        function screenPop() {
+            alert('test');
+            var objectIdRelUrl = '00D90000000rm2s'; // Replace the Id with a valid one from your organization.
+            sforce.interaction.screenPop(objectIdRelUrl, true, screenPopCallback);
+        }
+        var onClickListener = function (response) {
+            if (response.result) {
+                alert("User clicked on a phone number. The data returned as JSON format is
+                : " + response.result );
+            }
+        };
+        sforce.interaction.cti.onClickToDial(onClickListener);
+    </script>
+    <button onclick='toggleClickToDial();'>Toggle Click-to-Dial</button>
+    <button onclick="screenPop();">Screen Pop</button>
+</apex:page>

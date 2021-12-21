@@ -1,0 +1,9 @@
+<apex:page showheader="true" standardController="case" >
+<apex:form >
+    <apex:pageBlock >        
+        <apex:iframe >
+            <apex:inputField value="{!case.Case_Category__c}"/>
+         </apex:iframe>        
+    </apex:pageBlock>
+</apex:form>
+</apex:page>

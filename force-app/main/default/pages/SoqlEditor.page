@@ -1,0 +1,56 @@
+<apex:page >
+    
+    <apex:includeScript value="/soap/ajax/30.0/connection.js"/>
+     <apex:includeScript value="/soap/ajax/30.0/apex.js"/>
+    <script type="text/javascript">
+        function runQuery() {
+            document.getElementById("result").innerHTML ="<br /><span style='color:blue'>Please wait, running query...<\/span><br /><br /><br />";
+            var queryString = document.getElementById("runQuery").queryString.value;
+            alert(queryString.substring(queryString.indexOf("from")+4)) ; 
+            var result;
+            try{
+                sforce.connection.sessionId = '{!$Api.Session_ID}';
+                result = sforce.connection.describeGlobal();
+            }catch(err){
+                alert(err.message);
+            }
+            var sobjects = result.getArray("sobjects");   
+            //alert(sobjects);  
+            //var objectName = queryString.       
+            //document.getElementById("result").innerHTML = sobjects ;
+        }
+        function enlargeTextarea(){
+           var height = document.getElementById("queryString").rows; 
+           document.getElementById("queryString").rows = height+2;
+        }
+        function reduceTextarea(){
+           var height = document.getElementById("queryString").rows; 
+           document.getElementById("queryString").rows = height-2;
+        }
+    </script>
+    <apex:pageBlock title="SOQL Query Editor">
+        <form id="runQuery" action="javascript:runQuery()">
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Your query: <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <textarea id="queryString" name="queryString" rows="6" cols="120" class="textareaStyle" selected="yes"></textarea>
+            <br />
+            <input value=" Go " class="btn" title="Go" name="Go" type="submit" />&nbsp;&nbsp;
+            <input type="checkbox" id="showTableResult" name="showTableResult" checked="yes" />&nbsp;
+            Show result as table 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" id="showRawResult" name="showRawResult" />&nbsp;
+            Show raw SOQL result 
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" id="showCSVResult" name="showCSVResult" />&nbsp;
+            Show result as CSV
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <input type="checkbox" id="includeDeletedRecords" name="includeDeletedRecords" />&nbsp;
+            Include deleted records
+            &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            <a href="javascript:enlargeTextarea()">Enlarge text area</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
+            <a href="javascript:reduceTextarea()">Reduce text area</a>
+            <br />             
+        </form>
+        <div id="result">&nbsp;</div>
+    </apex:pageBlock>
+</apex:page>

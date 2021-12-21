@@ -1,0 +1,164 @@
+<apex:page controller="OfferController" action="{!getOfferDetail}">
+    <script type="text/javascript">
+        function disableOther() {
+            var btn = document.querySelector("[id$='selectBtn']");
+            btn.className = 'btn btnDisabled';
+            btn.disabled = 'disabled';
+            return false;
+        }
+    </script>
+    <style>
+        .THIS * {
+          box-sizing: border-box;
+        }
+        
+        body {
+          font-family: Arial, Helvetica, sans-serif;
+        }
+        .btn {
+            display: inline-block;
+            margin-bottom: 0;
+            font-weight: 400;
+            text-align: center;
+            white-space: nowrap;
+            vertical-align: middle;
+            cursor: pointer;
+            background-image: none;
+            border: 1px solid transparent;
+            padding: 6px 12px;
+            font-size: 16px;
+            line-height: 1.42857143;
+            background-color: #f0ad4e;
+            border-radius: 4px;
+        }
+        .btn.btn-block.btn-warning {
+            color: #fff;
+            vertical-align: middle;
+            display: inline-block;
+            padding: 6px 12px;
+            background: #f0ad4e;
+            margin-bottom: 0;
+            font-weight: 400;
+            text-align: center;
+            cursor: pointer;
+            background-image: none;
+            border: 1px solid transparent;
+            white-space: nowrap;
+            border-color: #eea236;
+            line-height: 1.42857143;
+            background-color: #f0ad4e;
+            font-size: 14px;
+            border-radius: 4px;
+        }
+        
+        /* Float four columns side by side */
+        .column {
+          float: left;
+          width: 15%;
+          padding: 10px;
+        }
+        
+        .border-li {
+          border: 1px solid #ddd;
+          padding: 8px 0px 8px 0px;
+        }
+        
+        /* Remove extra left and right margins, due to padding in columns */
+        .row {margin: 0 -5px;}
+        
+        /* Clear floats after the columns */
+        .row:after {
+          content: "";
+          display: table;
+          clear: both;
+        }
+        
+        /* Style the counter cards */
+        .card {
+          box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2); /* this adds the "card" effect */
+          padding: 0px;
+          text-align: center;
+          background-color: #f1f1f1;
+        }
+        
+        .list-group-item {
+            color: #777777;
+            border-bottom: 1px solid rgba(250, 250, 250, 0.5);    
+            display: block;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            float:left;
+        }
+        .list-group-item:first-child {
+            border-top-width: 0;
+        }
+        .panel {        
+            background-color: #fff;
+            border: 1px solid transparent;
+            border-radius: 2px;   
+            box-shadow: 0 1px 1px rgba(0,0,0,.05);
+            padding-right: 8px;    
+            font-size: 15px;
+            padding-left: 8px;
+            min-height: 1px;
+            line-height: 1.42857143;
+            margin-left:20px;    
+            width: 10%;    
+        }
+        .panel-heading {
+            background: #0091d1;
+            color: white;
+            font-family: 'Lato', sans-serif;
+            font-size: 15px;
+            border-color: #0091d1;
+            padding: 14px 14px;
+            border-top-left-radius: 6px;
+            border-top-right-radius: 6px;
+        }
+        
+        .panel-custom-pearlMax {    
+            border-color: #0091d1;
+        }
+        .offerSelected{
+            color: #fff;
+            vertical-align: middle;
+            display: inline-block;
+            padding: 6px 12px;
+            background: #8fda4c;
+            margin-bottom: 0;
+            font-weight: 400;
+            text-align: center;            
+            background-image: none;            
+            white-space: nowrap;            
+            line-height: 1.42857143;            
+            font-size: 14px;            
+        }
+    </style>
+    <apex:form id="form">    
+        <apex:repeat id="repeat" value="{!offList}" var="offer">
+            <!--<div class="row">-->
+              <div class="column">
+                <div class="card">
+                  <div class="panel-heading" >
+                     <h5 class="">5.5 Months/1.32x</h5>
+                  </div>
+                  <ul style="list-style-type: none; padding: 0px; margin:0px;margin-left: -1.5em;">
+                    <li class="border-li"><b style="font-size: x-large" >${!offer.Advance_Amount__c}<br></br></b>Advance</li>
+                    <li class="border-li"><b class="">${!offer.Payback_Amount__c}</b><br></br>Payback Amt</li>
+                    <li class="border-li"><b class="">${!offer.Daily_Payment__c}/{!offer.Of_Days__c}</b> <br></br> DP/# of Days</li>
+                    <li class="border-li"><b class="">{!offer.Commission__c}<span style="font-size: smaller">%</span>/${!offer.Commission2__c}</b> <br></br> Comm %/Comm $</li>
+                  </ul>                  
+                  <div class="panel-footer" style="padding: 10px;">
+                      <apex:commandButton reRender="form" id="selectBtn" rendered="{!!offer.Selected_Offer__c}" styleClass="btn  btn-block  btn-warning" value="Accept Offer" action="{!acceptOffer}">
+                          <apex:param name="" value="{!offer.Id}" assignTo="{!offerId}"/>
+                      </apex:commandButton>
+                      <div >                    
+                        <apex:outputText styleClass="offerSelected" value="Offer Selected" rendered="{!offer.Selected_Offer__c}"></apex:outputText>
+                      </div>                                      
+                  </div>                  
+                </div>
+              </div>
+              <!--</div>-->
+        </apex:repeat>        
+    </apex:form>
+</apex:page>

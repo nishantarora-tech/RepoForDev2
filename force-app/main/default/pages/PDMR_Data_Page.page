@@ -1,0 +1,137 @@
+<apex:page Controller="PDMR_Controller" sidebar="false" showheader="false" cache="false" >
+ <style>
+        .lableStyle {color:#197C96;font-size:110%;}
+        .alignment {position: absolute;right: 10px;color:#006666;}
+</style>     
+     <apex:form >
+         <apex:pageBlock title="PDMR Data Edit" mode="edit">
+             <apex:pageBlockButtons >                                 
+                    <apex:commandButton value="Save" action="{!save}" rerender="pbs,pbs1" status="actStatusId"/>                                                           
+                     <apex:commandButton value="Cancel" action="{!cancel}" rerender="pbs,pbs1" status="actStatusId"/> 
+                        <apex:actionStatus id="actStatusId">
+                         <apex:facet name="start">
+                          <img src="/img/loading.gif"/>                   
+                         </apex:facet>
+                      </apex:actionStatus>                 
+                     <apex:commandLink action="{!showPDMRPage}" value="View PDMR Data" immediate="true" styleClass="alignment"/>
+           </apex:pageBlockButtons>
+       <table id="PDMRTable" align="right">
+            <tr>
+                <td>
+                    <div class=" brandTertiaryBgr first tertiaryPalette"  >
+                    <span class="pbSubExtra">
+                    <span class="requiredLegend">
+                    <span class="requiredExampleOuter">
+                    <span class="requiredExample">&nbsp;</span>
+                    </span>
+                    <span class="requiredText"> = Required Information</span>
+                    </span>
+                    </span>
+                    </div>
+                </td>
+        </tr></table>
+             
+              <apex:outputLabel ><h1><u>Information</u></h1></apex:outputLabel>
+           
+        <apex:pageblockSection columns="2" id="pbs">
+                <apex:pageBlockSectionItem >
+                     <apex:outputLabel value="Sprint"/> 
+                       <apex:outputpanel layout="block" styleClass="requiredInput">
+                       <apex:outputpanel layout="block" styleClass="requiredBlock"/>
+                             <apex:inputField value="{!PDMR.Sprint__c}"  style="width:110px;">
+                                 <apex:actionSupport event="onchange" action="{!getPdmrDetails}"  /> 
+                             </apex:inputField>
+                       </apex:outputPanel>
+                </apex:pageBlockSectionItem>
+                
+                <apex:pageBlockSectionItem > 
+                     <apex:outputLabel value="Vantiv Teams"/>
+                          <apex:outputpanel layout="block" styleClass="requiredInput">
+                          <apex:outputpanel layout="block" styleClass="requiredBlock"/>
+                                <apex:inputField value="{!PDMR.Vantiv_Teams__c}" >
+                                     <apex:actionSupport event="onchange" action="{!getPdmrDetails}"  /> 
+                                </apex:inputField>
+                         </apex:outputPanel>
+                </apex:pageBlockSectionItem> 
+             <!--apex:outputField value="{!PDMR.ownerId__c}"/-->  
+                        
+         </apex:pageblockSection>
+            
+             <apex:outputLabel ><h1><u>Sprint Date</u></h1></apex:outputLabel>   
+                 <apex:pageblockSection columns="2" id="pbs1">
+                 <apex:pageBlockSectionItem > 
+                     <apex:outputLabel value="Actual Start Date"/>
+                         <apex:outputpanel layout="block" styleClass="requiredInput">
+                          <apex:outputpanel layout="block" styleClass="requiredBlock"/>
+                             <apex:inputField value="{!PDMR.Start_Date__c}"/>
+                         </apex:outputPanel>
+                  </apex:pageBlockSectionItem>
+                    
+                  <apex:pageBlockSectionItem > 
+                     <apex:outputLabel value="Actual End Date"/>
+                          <apex:outputpanel layout="block" styleClass="requiredInput">
+                          <apex:outputpanel layout="block" styleClass="requiredBlock"/>
+                             <apex:inputField value="{!PDMR.End_Date__c}"/>
+                         </apex:outputPanel>
+                  </apex:pageBlockSectionItem> 
+              
+              </apex:pageblockSection>
+                 
+             <apex:outputLabel ><h1><u>Efforts</u></h1></apex:outputLabel> 
+             <apex:pageblocksection columns="2">
+                 <apex:inputField value="{!PDMR.Total_Actual_Effort__c}" style="width:30px"/>
+                 <apex:inputField value="{!PDMR.Total_Review_Efforts__c}" style="width:30px"/>
+                 <apex:inputField value="{!PDMR.Total_Testing_Efforts__c}" style="width:30px"/>
+                 <apex:inputField value="{!PDMR.Total_PM_Efforts__c}" style="width:30px"/>
+             </apex:pageblocksection>
+             
+             <apex:outputLabel ><h1><u>User Stories Details</u></h1></apex:outputLabel> 
+             <apex:pageBlockSection columns="2">
+                 <apex:inputField value="{!PDMR.Planned_number_of_stories_initially_pl__c}" style="width:30px"/>
+                 <apex:inputField value="{!PDMR.Number_of_stories_added_after_start_of_I__c}" style="width:30px"/>
+                 <apex:inputField value="{!PDMR.Number_of_stories_De_scoped_Customer_In__c}" style="width:30px"/>
+                 <apex:inputField value="{!PDMR.Number_of_stories_Modified__c}" style="width:30px"/>
+                 <apex:inputField value="{!PDMR.Total_number_of_user_stories_worked_in_S__c}" style="width:30px"/>
+                 <apex:inputField value="{!PDMR.Delivered_Completed_number_of_stories__c}" style="width:30px"/>
+                 <apex:inputField value="{!PDMR.No_of_User_stories_having_UTC_Traceabi__c}" style="width:30px"/>
+             </apex:pageBlockSection>
+             
+             <apex:outputLabel ><h1><u>Defect Details</u></h1></apex:outputLabel>
+             <apex:pageBlockSection columns="2">
+                 <apex:inputfield value="{!PDMR.Post_Sprint_Defects__c}" style="width:30px"/>
+                 <apex:inputfield value="{!PDMR.Post_Release_Defects__c}" style="width:30px"/>
+             </apex:pageBlockSection>
+             
+             <apex:outputLabel ><h1><u>Test Case/Code Size</u></h1></apex:outputLabel>
+             <apex:pageblockSection columns="2">
+                 <apex:inputField value="{!PDMR.Total_Code_Size__c}" style="width:30px"/>
+                 <apex:inputField value="{!PDMR.Total_no_of_Test_Cases_Automated_UT_F__c}" style="width:30px"/>
+                 <apex:inputField value="{!PDMR.LOC_Covered_through_Unit_Testing__c}" style="width:30px"/>
+                 <apex:inputField value="{!PDMR.Total_Number_of_Test_Cases_UT_FT_ST_o__c}" style="width:30px"/>
+             </apex:pageblockSection>
+             
+             <apex:outputLabel ><h1><u>Story Points Details</u></h1></apex:outputLabel>
+             <apex:pageblockSection columns="2">
+                 <apex:inputfield value="{!PDMR.Planned_Story_Points_for_Sprint__c}" style="width:30px"/>
+                 <apex:inputfield value="{!PDMR.Story_Points__c}" style="width:30px"/>
+             </apex:pageblockSection>
+             
+             <apex:outputLabel ><h1><u>Iteration Details</u></h1></apex:outputLabel>
+             <apex:pageblockSection columns="2">
+                 <apex:inputfield value="{!PDMR.Total_of_builds_in_Iteration__c}" style="width:30px"/>
+                 <apex:inputfield value="{!PDMR.Builds_passed_in_Iteration__c}" style="width:30px"/>
+                 <apex:inputfield value="{!PDMR.Team_Capacity__c}" style="width:30px"/>
+                 <apex:inputfield value="{!PDMR.Defects_Corrected_in_the_Iteration__c}" style="width:30px"/>
+                 <apex:inputfield value="{!PDMR.Open_Defects_at_the_start_of_Iteration__c}" style="width:30px"/>
+             </apex:pageblockSection>
+             
+             <apex:outputLabel ><h1><u>Closed and Open Action items</u></h1></apex:outputLabel>
+             <apex:pageblockSection columns="2">
+                 <apex:inputField value="{!PDMR.Closed_Action_Items__c}" style="width:30px"/>
+                 <apex:inputField value="{!PDMR.Total_of_Action_Items__c}" style="width:30px"/>
+                 <apex:inputField value="{!PDMR.Agility_Quotient__c}" style="width:30px"/>
+             </apex:pageblockSection>
+          
+         </apex:pageBlock>       
+     </apex:form>
+</apex:page>

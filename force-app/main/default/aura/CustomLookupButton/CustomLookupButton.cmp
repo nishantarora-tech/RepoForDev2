@@ -1,0 +1,3 @@
+<aura:component controller="customLookUpController" implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+	<lightning:button label="Related Opportunities" variant="brand" onclick="{!c.navigateToComponent}"></lightning:button>
+</aura:component>

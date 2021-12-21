@@ -1,0 +1,29 @@
+<apex:page id="communitiesSelfRegPage" showHeader="true" controller="CommunitiesSelfRegController" title="{!$Label.site.user_registration}">       
+      <center>
+<apex:form id="theForm" forceSSL="true">
+    <apex:pageBlock title="Create new user">
+    <apex:pageMessages id="error"/>
+        <apex:pageBlockSection columns="1">                                   
+            <apex:inputText required="true" id="firstName" value="{!firstName}" label="First Name"/>                
+            <apex:inputText required="true" id="lastName" value="{!lastName}" label="Last Name"/>   
+            <apex:pageBlockSectionItem helpText="Display name for users in online communities">
+                <apex:outputLabel value="{!$Label.site.community_nickname}" for="communityNickname"/> 
+                <apex:inputText required="true" id="communityNickname"  value="{!communityNickname}" />                
+            </apex:pageBlockSectionItem>                            
+            <apex:inputText required="true" id="email" value="{!email}" label="{!$Label.site.email}"/>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel >Select Account</apex:outputLabel>
+                <apex:selectList value="{!selectedAccount}" size="1">
+                    <apex:selectOptions value="{!Accounts}"/>                                    
+                </apex:selectList> 
+            </apex:pageBlockSectionItem>                                                                            
+        </apex:pageBlockSection> 
+        <apex:pageBlockButtons location="bottom">
+            <apex:commandButton action="{!registerUser}" value="{!$Label.site.submit}" id="submit"/>             
+        </apex:pageBlockButtons> 
+    </apex:pageBlock>         
+                  <br/>
+</apex:form>
+     </center>
+      <br/>   
+</apex:page>

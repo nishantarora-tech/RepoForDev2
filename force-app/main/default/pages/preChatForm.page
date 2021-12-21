@@ -1,0 +1,53 @@
+<apex:page showHeader="false">       
+<script type="text/javascript">
+
+ (function() {
+    function handlePageLoad() {    
+        var endpointMatcher = new RegExp("[\\?\\&]endpoint=([^&#]*)");        
+        document.getElementById('prechatForm').setAttribute('action',        
+        decodeURIComponent(endpointMatcher.exec(document.location.search)[1]));        
+    }if (window.addEventListener) {
+          window.addEventListener('load', handlePageLoad, false);
+
+    }else { window.attachEvent('onload', handlePageLoad, false);
+
+          }
+     }
+    )();
+
+</script>
+    <h1>Pre-chat Form</h1>
+<form method='post' id='prechatForm'>
+    <apex:pageBlock >
+        <apex:pageBlockSection >
+            First name: <input type='text' name='liveagent.prechat:FirstNameDetail'
+            id='customField1' /><br />
+            Last name: <input type='text' name='liveagent.prechat:LastNameDetail'
+            id='customField2' /><br />
+            Department: <select name="liveagent.prechat.buttons">
+              <!-- Values are LiveChatButton IDs. -->
+              <option value="573a00000000001">Customer Service</option>
+              <option value="573a00000000002">Technical Support</option>
+              <option value="573a00000000001,573a00000000002">Customer Service if online,
+              otherwise Technical Support</option>
+            </select><br />             
+            <input type="hidden" name="liveagent.prechat.findorcreate.map:Contact"
+            value="FirstName,FirstNameDetail;LastName,LastNameDetail" />                     
+            <input type="hidden" name="liveagent.prechat.findorcreate.map.doFind:Contact"
+            value="FirstName,true" />          
+            <input type="hidden" name="liveagent.prechat.findorcreate.map.isExactMatch:Contact"
+            value="FirstName,true" />                           
+            <input type="hidden" name="liveagent.prechat.findorcreate.map.doCreate:Contact"
+            value="FirstName,true;LastName,true" />          
+            <input type="hidden" name="liveagent.prechat.findorcreate.showOnCreate:Contact"
+            value="true" />               
+            <input type="hidden" name="liveagent.prechat.findorcreate.saveToTranscript:Contact"
+            value="ContactId" />     
+            <input type='submit' value='Request Chat' id='prechat_submit'/>
+        <style type="text/css">
+        p {font-weight: bolder }
+        </style>
+        </apex:pageBlockSection>
+</apex:pageBlock>
+</form>
+</apex:page>

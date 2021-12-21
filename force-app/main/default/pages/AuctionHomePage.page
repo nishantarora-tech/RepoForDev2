@@ -1,0 +1,140 @@
+<apex:page standardController="Auction__c" extensions="AuctionController" tabStyle="Auctions__tab" docType="html-5.0" sidebar="False">
+<apex:form id="formnovalidate">    
+    <apex:pageMessages ></apex:pageMessages>         
+    <apex:pageBlock rendered="{!flagBidder}">   
+    <apex:pageBlockButtons >           
+    </apex:pageBlockButtons>    
+        <apex:pageBlockSection columns="2"> 
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel for="auctions">Total Auctions:</apex:outputLabel> 
+                <apex:outputText id="auctions" value="{!totalAuctions}" />
+            </apex:pageBlockSectionItem>               
+            <apex:pageBlockSectionItem >            
+                <apex:outputLabel for="ClosingAuctions">Total Closing Today:</apex:outputLabel>
+                <apex:outputText id="ClosingAuctions"  value="{!totalClosedAuctions}" />
+            </apex:pageBlockSectionItem>            
+       </apex:pageBlockSection>               
+    <apex:pageBlockSection collapsible="true" columns="1">
+        <apex:facet name="header">
+            <span style="color:white">
+                All Available Auctions
+            </span>            
+         </apex:facet>                   
+        <apex:pageBlocktable id="objTable" value="{!auctionPagination }" var="auction" style="width: 1100px;" columnsWidth="40%,25%,20,15">                            
+            <apex:column headerValue="Title">                                                      
+               <apex:commandLink id="titleId" value="{!auction.Title__c}" action="{!title}">
+                   <apex:param name="title" value="{!auction.Title__c}" assignTo="{!auctionTitle}"/>
+               </apex:commandLink>
+            </apex:column>          
+            <apex:column value="{!auction.Auction_Close_Time__c}" headerValue="Auction Close Time"/>                            
+            <apex:column value="{!auction.Created_Date__c}">       
+                <apex:facet name="header">
+                    <apex:commandLink action="{!sortCreatedDate}" rerender="objTable,panel">Created Date</apex:commandLink>
+                </apex:facet> 
+            </apex:column>     
+            <apex:column value="{!auction.Status__c}" headerValue="Status"/>                                                                        
+        </apex:pageBlockTable>        
+        <apex:outputPanel id="panel" style="margin-left :410px;">                         
+            <apex:outputText id="page1" value="Page {!pageNumber} of {!CEILING(ResultSize /PageSize)}" rendered="{!CEILING(ResultSize /PageSize)>0}"/>                        
+            <apex:commandButton id="first" value="First<|" action="{!first}" rendered = "{!pageNumber>1}"/>
+            <apex:commandButton value="Next>" action="{!next}" rendered="{!hasNext}" reRender="objTable,page1,panel"/>
+            <apex:commandButton id="previous1" value="Previous<" action="{!previous}" rendered="{!hasPrevious}"  reRender="panel,objTable"/> 
+            <apex:commandButton value="Last>|" action="{!Last}" reRender="objTable,panel" rendered="{!CEILING(ResultSize /PageSize)<>pageNumber && CEILING(ResultSize /PageSize)<>pageNumber}"/> 
+        </apex:outputPanel>                   
+      </apex:pageBlockSection>                          
+    </apex:pageBlock>      
+    <apex:pageBlock rendered="{!flagAdminPage}">
+        <apex:param value="{!$CurrentPage.parameters.sfdc.tabname}" assignTo="{!tabName}"/>        
+        <apex:pageBlockButtons > 
+            <apex:commandButton value="New Auction" action="{!newAuction}"/>          
+        </apex:pageBlockButtons>    
+        <apex:pageBlockSection columns="2" id="pageBlockSection"> 
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel for="auctions" id="openAuction">My Open Auctions:</apex:outputLabel> 
+                <apex:outputText id="auctions" value="{!totalAuctions}"/>
+            </apex:pageBlockSectionItem>               
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel for="ClosingAuctions">My Auctions Closing Today:</apex:outputLabel> 
+                <apex:outputText id="ClosingAuctions"  value="{!totalClosedAuctions}" />
+            </apex:pageBlockSectionItem>            
+        </apex:pageBlockSection>               
+        <apex:pageBlockSection collapsible="true" columns="1" >
+        <apex:facet name="header">
+            <span style="color:White">
+                My Available Auctions
+            </span>            
+         </apex:facet>                            
+        <apex:pageBlocktable id="admin" value="{!auctionPagination}" var="auction" style="width: 1100px;" columnsWidth="35%,25%,20%,20%">                            
+            <apex:column headerValue="Title" id="title">                                                       
+               <apex:commandLink id="titleId" value="{!auction.Title__c}" action="{!title}" target="_blank">              
+                   <apex:param name="strName" value="{!auction.Title__c}" assignTo="{!auctionTitle}"/>
+               </apex:commandLink>
+            </apex:column>
+            <apex:column id="close" value="{!auction.Auction_Close_Time__c}" headerValue="Auction Close Time"/>                                   
+            <apex:column value="{!auction.Created_Date__c}">
+                <apex:facet name="header">
+                    <apex:commandLink action="{!sortCreatedDate}" rerender="admin,panel2">Created Date</apex:commandLink>
+                </apex:facet> 
+             </apex:column>                           
+            <apex:column value="{!auction.Status__c}">
+                <apex:facet name="header">
+                    <apex:commandLink action="{!sortStatus}" reRender="admin,panel2">Status</apex:commandLink>
+                </apex:facet>
+            </apex:column>                                                      
+        </apex:pageBlocktable>  
+        <apex:outputPanel id="panel2" style="margin-left: 370px;">                          
+            <apex:outputText id="page" value="Page {!pageNumber} of {!CEILING(ResultSize /PageSize)}" rendered="{!CEILING(ResultSize /PageSize)>0}"/>                                     
+            <apex:commandButton id="first1" value="First<|" action="{!first}" rendered="{!pageNumber>1}"/>
+            <apex:commandButton value="Next>" action="{!next}" rendered="{!hasNext}" reRender="admin,page,panel2"/>
+            <apex:commandButton id="previous" value="Previous<" action="{!previous}" rendered="{!hasPrevious}"  reRender="panel2,admin"/> 
+            <apex:commandButton id="last" value="Last>|" action="{!Last}"  reRender="panel2,admin" rendered="{!CEILING(ResultSize /PageSize)>1 && CEILING(ResultSize /PageSize)<>pageNumber}"/> 
+        </apex:outputPanel>                                                                                                     
+      </apex:pageBlockSection>                                                                                
+    </apex:pageBlock>  
+    <apex:sectionHeader title="Auction" subtitle="New Auction" rendered="{!flagSavePage}" />   
+    <apex:pageBlock title="Auction Details" rendered="{!flagSavePage}">                                       
+        <apex:pageBlockButtons >
+            <apex:commandButton value="Save" action="{!save}"/>
+            <apex:commandButton value="Cancel" action="{!cancel}"  html-formnovalidate="formnovalidate"/>
+        </apex:pageBlockButtons>
+        <apex:pageBlockSection columns="1" title="Auction Details">            
+            <apex:inputField id="title" value="{!auctionObj.Title__c}" required="true"/>
+            <apex:inputField id="status" value="{!auctionObj.Status__c}" required="true"/>
+            <apex:inputField id="CloseTime" value="{!auctionObj.Auction_Close_Time__c}" required="true"/>                   
+            <apex:inputField id="description" value="{!auctionObj.Description__c}" required="true"/>            
+        </apex:pageBlockSection> 
+        </apex:pageBlock>
+        <apex:pageBlock rendered="{!flagSavePage}">
+            <apex:pageBlockSection title="Add Picture" collapsible="false">           
+                <apex:inputField value="{!auctionObj.File_Name__c}" rendered="{!!flagImage }"/> 
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel value="File" for="file" rendered="{!!flagImage }"/>
+                    <apex:inputFile title="File" value="{!photo}" rendered="{!!flagImage}">
+                        <!--apex:param value="{!photo}" assignTo="{!photo1}"/--> 
+                     </apex:inputFile>                                       
+                </apex:pageBlockSectionItem>          
+            </apex:pageBlockSection> 
+            <apex:pageBlockButtons location="Bottom" >                 
+                <apex:commandButton value="Add Picture" action="{!addPicture}" rendered="{!!flagImage}"/>
+            </apex:pageBlockButtons>
+            <apex:image id="image" value="{!photoURL}" url="{!photoURL}" rendered="{!if(photoURL= '' ,false,true)}"/>            
+       </apex:pageBlock>     
+    <apex:sectionHeader title="Auction" subtitle="{!auctionObj.Title__c}" rendered="{!flagEditPage}" />
+    <apex:pageBlock id="editBlock" title="Auction Details" rendered="{!flagEditPage}">   
+        <apex:pageBlockButtons >
+            <apex:commandButton value="Edit Auction" action="{!editAuction}" rendered="{!!flagEditButtonHide}"/>
+        </apex:pageBlockButtons>         
+        <apex:outputText value="{!auctionObj.Title__c}"></apex:outputText>           
+        <apex:pageBlockSection title="Auction Details" columns="1">                                    
+            <apex:outputField id="time1" value="{!auctionObj.Auction_Close_Time__c}"/>                                                        
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel for="time">Time Left</apex:outputLabel>
+                <apex:outputText value="{!hours} Hours {!minutes} Minutes {!seconds} Seconds"></apex:outputText> 
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>
+        <apex:pageBlockSection title="Picture" id="pictureSection">            
+           <apex:image id="image" value="{!photoURL }" url="{!photoURL}" rendered="{!if(photoURL= '' ,false,true)}"/>            
+        </apex:pageBlockSection>
+    </apex:pageBlock>                                  
+</apex:form>
+</apex:page>

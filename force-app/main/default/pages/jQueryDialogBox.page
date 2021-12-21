@@ -1,0 +1,36 @@
+<apex:page standardController="Account" recordSetVar="Accounts" showHeader="false">
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"/>
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js"/>
+    <style> 
+    #type{
+        font-size:25px;       
+        text-align: center;
+    }    
+    </style>
+    <script>  
+    $(document).ready(function(){        
+        $('#type').hide();
+    });            
+    function showDialog(name,type){                
+        $('#typeValue').html(type);        
+        $('#type').dialog({autoOpen: true});
+        $('#type').dialog('open');
+        $('#type').dialog('option','title', name);
+           
+        return false;    
+    }
+    </script>
+    <apex:form >
+        <apex:pageBlock >
+            <apex:dataList value="{!accounts}" var="acc">
+                <apex:outputLink onclick="return showDialog('{!acc.name}','{!acc.type}')" style="color:blue">{!acc.name}</apex:outputLink>
+            </apex:dataList>
+            <div id="type">
+                <apex:outputText value="{!account.type}"></apex:outputText> 
+                <div style="float:left">Type:</div>
+                <div id="typeValue"></div> 
+            </div>            
+                                           
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

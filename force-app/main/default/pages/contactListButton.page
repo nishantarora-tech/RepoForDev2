@@ -1,0 +1,14 @@
+<apex:page standardController="Contact" extensions="ContactController" recordSetVar="Contact">
+    <apex:form >
+      <apex:pageBlock >          
+          <apex:pageBlockTable value="{!lstContact }" var="con" rows="10" rendered="{!lstContact.size>0}">
+              <apex:column headerValue="First Name">
+                  <apex:inputText value="{!con.firstname}"/>
+              </apex:column>
+              <apex:column headerValue="Last Name">
+                  <apex:inputText value="{!con.lastname}"/>
+              </apex:column>
+          </apex:pageBlockTable>                                                      
+      </apex:pageBlock>
+    </apex:form>
+</apex:page>

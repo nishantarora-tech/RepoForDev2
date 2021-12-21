@@ -1,0 +1,21 @@
+<apex:page standardController="ProcessInstance" extensions="ApprovalProcess">
+<apex:form id="form">
+  <apex:pageMessages id="Msg"></apex:pageMessages>
+  <apex:pageBlock Id="pb">
+  <apex:pageBlockTable value="{!App}" var="a">
+        <apex:column value="{!a.Id}">
+        </apex:column>
+        <apex:column value="{!a.TargetObjectId}">
+        </apex:column>
+        <apex:column value="{!a.Status }">
+        </apex:column>
+        <apex:column headerValue="Action">
+        <apex:commandButton Value="Approve" reRender="form,pb" action="{!Approval}">
+             <apex:param value="{!a.TargetObjectId}" assignTo="{!strTargetId}" name="a"/>
+        </apex:commandButton>
+        <apex:commandButton value="Reject" />
+        </apex:column>
+    </apex:pageBlockTable>
+    </apex:pageBlock>
+   </apex:form>
+</apex:page>

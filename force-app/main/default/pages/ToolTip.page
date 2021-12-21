@@ -1,0 +1,53 @@
+<apex:page standardController="Case" showHeader="false" sidebar="true">
+<style type="text/css">   
+        .imgclass:hover{   
+            background-image: url(/img/help/helpOrbs.gif);   
+            background-repeat: no-repeat;   
+            width: 16px;   
+            height: 15px;                  
+            background-position: right;             
+        }           
+        .imgclass{   
+            background-image: url(/img/help/helpOrbs.gif);   
+            background-repeat: no-repeat;   
+            width: 16px;   
+            height: 15px;   
+        }
+        .tooltip .tooltiptext {
+            visibility: hidden;
+            width: 120px;
+            background-color: black;
+            color: #fff;
+            text-align: center;
+            border-radius: 6px;
+            padding: 5px 0;      
+            /* Position the tooltip */
+            position: absolute;
+            z-index: 1;
+        } 
+        .tooltip:hover .tooltiptext {
+            visibility: visible;
+        }  
+        .tooltip {
+            position: relative;
+            display: inline-block;           
+            font-weight: bold;
+        }
+    </style>       
+<apex:form >
+    <apex:pageBlock >
+        <apex:pageBlockSection >
+            <apex:pageBlockSectionItem >
+                <apex:outputPanel >
+                    <apex:outputlabel value="Name:"/>                                     
+                        <div class="tooltip">Manish
+                            <span class="tooltiptext">Kutta Kamina</span>
+                        </div>                
+                    </apex:outputPanel>                 
+            </apex:pageBlockSectionItem>          
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    
+</apex:form>
+
+</apex:page>

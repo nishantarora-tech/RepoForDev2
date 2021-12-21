@@ -1,0 +1,32 @@
+<apex:page controller="ProductController">  
+ <style>
+        .customImage img{
+            height: 50px;
+            width : 50px;
+        }
+    </style>
+  <apex:form >
+      <apex:pageBlock >
+      <apex:pageMessages id="msgId"/>
+          <apex:inputText value="{!strSearchText}" />
+          <apex:commandButton value="Search" action="{!Search}"/>          
+          <apex:pageBlockSection columns="2" rendered="{!productResultsList.size>0}">
+           <apex:facet name="header">
+               <span style="color:Black" >Products</span>
+           </apex:facet>      
+           <!-- <apex:pageBlockTable value="{!docList}" var="doc">            
+               <apex:column value="{!doc.name}" headerValue="Product Name"/>                                                                                                                                                                                                                                                                                                                                                                                                                       
+               <apex:column headerValue="Product Image">                                                                                                    
+                           <apex:image value="{!URLFOR($Action.Document.Download,doc.Id)}" width="35%" height="35%" />                                                                                     
+               </apex:column> 
+           
+           </apex:pageBlockTable> -->   
+            <apex:repeat value="{!productResultsList}" var="prod">
+                {!prod.name}
+                
+                <apex:outputLabel value="{!prod.Product_Image__c}" escape="false"  styleClass="customImage"/> 
+            </apex:repeat>                                                                                                
+          </apex:pageBlockSection>
+      </apex:pageBlock>
+  </apex:form>
+</apex:page>

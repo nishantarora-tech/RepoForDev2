@@ -1,0 +1,40 @@
+<apex:page >
+    <apex:stylesheet value="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css"/>
+    <apex:remoteObjects >
+        <apex:remoteObjectModel name="login_History__PDMR_Data__c" jsShorthand="PDMR" 
+            fields="login_History__Sprint__c,login_History__Vantiv_Teams__c">
+            <!--apex:remoteObjectField name="Vantiv_Teams__c" jsShorthand="VantivTeams"/-->
+        </apex:remoteObjectModel>
+    </apex:remoteObjects>
+    <script>
+        var fetchPDMR = function(){
+            // Create a new Remote Object
+            var wh = new SObjectModel.PDMR();
+            // Use the Remote Object to query for 10 warehouse records
+            wh.retrieve({ limit: 5 }, function(err, records, event){
+                if(err) {
+                    alert(err.message);
+                }else {
+                    var ul = document.getElementById("PDMRList");
+                    records.forEach(function(record) {
+                        // Build the text for a PDMR line item
+                        var whText = record.get("Sprint__c");
+                        whText += " -- ";
+                        whText += record.get("Vantiv_Teams__c");
+                        // Add the line item to the PDMR list
+                        var li = document.createElement("li");
+                        li.appendChild(document.createTextNode(whText));
+                        ul.appendChild(li);
+                    });
+                 }
+            });
+        };
+    </script>
+    <h3>Retrieve PDMR via Remote Objects</h3>
+
+    <p>PDMR:</p>
+
+    <ul id="PDMRList" class="list-group">
+    </ul>
+    <button onclick="fetchPDMR()">Retrieve PDMR</button>
+</apex:page>

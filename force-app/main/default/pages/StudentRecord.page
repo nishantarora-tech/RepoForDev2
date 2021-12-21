@@ -1,0 +1,79 @@
+<apex:page controller="StudentRecordController" tabStyle="Account" sidebar="false" showheader="false" cache="false" >
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
+<script>
+    
+</script>
+<apex:form id="frm">
+    <apex:pageMessages ></apex:pageMessages>    
+    <fieldset class="slds-box slds-theme--default slds-container--medium">        
+        <apex:pageBlock id="pb" title="Student Detail" rendered="{!flag}">
+            <apex:pageBlockSection title="Class" collapsible="true">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Class</apex:outputLabel>
+                    <apex:selectList value="{!selectedClass}" size="1" >
+                        <apex:selectOptions value="{!classes}"/>
+                    </apex:selectList>
+                </apex:pageBlockSectionItem>            
+            </apex:pageBlockSection>
+            <apex:pageBlockSection id="pbs1" title="Student Detail" collapsible="true">
+                <apex:inputField id="name" value="{!studentObj.Name__c}" required="true" onKeyUp="this.value=this.value.toUpperCase();" onchange="return disableButton();"/>                      
+                <apex:inputField value="{!studentObj.Father_s_Name__c}"  required="true" onKeyUp="this.value=this.value.toUpperCase();"/>
+                <apex:inputField value="{!studentObj.Mother_s_Name__c}"  required="true" onKeyUp="this.value=this.value.toUpperCase();"/>                
+                <apex:inputField value="{!studentObj.Email__c}" />                                    
+            </apex:pageBlockSection>
+            <apex:pageBlockSection id="pbs2" title="Address" collapsible="true">
+                <apex:inputField value="{!studentObj.Street__c}" onKeyUp="this.value=this.value.toUpperCase();"/>                      
+                <apex:inputField value="{!studentObj.State__c}"  onKeyUp="this.value=this.value.toUpperCase();"/>
+                <apex:inputField value="{!studentObj.City__c}"  onKeyUp="this.value=this.value.toUpperCase();"/>
+                <apex:inputField value="{!studentObj.Country__c}" onKeyUp="this.value=this.value.toUpperCase();"/>    
+            </apex:pageBlockSection>       
+            <apex:pageBlockButtons id="pbb" location="bottom">                
+                <apex:commandButton id="btn" value="Next" action="{!submitStudent}"/>                                               
+            </apex:pageBlockButtons>         
+        </apex:pageBlock>
+        <apex:pageBlock title="Student Details" rendered="{!flag2}">
+            <apex:pageBlockSection title="Class" collapsible="false">
+                <apex:pageBlockSectionItem >
+                    <apex:outputLabel >Class</apex:outputLabel>
+                    <apex:outputText value="{!selectedClass}"></apex:outputText>
+                </apex:pageBlockSectionItem>
+            </apex:pageBlockSection>
+            <apex:pageBlockSection title="Student Detail" collapsible="false">
+                <apex:outputField value="{!studentObj.Name__c}"/>            
+                <apex:outputField value="{!studentObj.Father_s_Name__c}"/>
+                <apex:outputField value="{!studentObj.Mother_s_Name__c}" />
+                <apex:outputField value="{!studentObj.Email__c}" />                          
+            </apex:pageBlockSection>
+            <apex:pageBlockSection id="pbs2" title="Address" collapsible="false">
+                <apex:outputField value="{!studentObj.Street__c}" />                      
+                <apex:outputField value="{!studentObj.State__c}"  />
+                <apex:outputField value="{!studentObj.City__c}"  />
+                <apex:outputField value="{!studentObj.Country__c}" />    
+            </apex:pageBlockSection>
+            <apex:pageBlockButtons location="bottom">
+                <apex:actionStatus id="saveStatus">                    
+                        <apex:facet name="stop">
+                            <apex:outputPanel >
+                                <apex:commandButton action="{!submit}" value="Submit" status="saveStatus"/>
+                                <apex:commandButton action="{!Cancel}" value="Back" immediate="true" />
+                            </apex:outputPanel>
+                        </apex:facet>
+                        <apex:facet name="start">
+                            <apex:outputPanel >
+                                <apex:commandButton value="Saving..." disabled="true" />
+                                <apex:commandButton value="Saving..." disabled="true" />
+                           </apex:outputPanel>                         
+                        </apex:facet>                                 
+                    </apex:actionStatus>
+                </apex:pageBlockButtons>  
+            <!--<apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Submit" action="{!submit}" disabled="{!disableButton}"/>
+                <apex:commandButton value="Back" action="{!cancel}"/>
+            </apex:pageBlockButtons> -->
+        </apex:pageBlock>
+        <apex:pageBlock rendered="{!block3}">
+            <apex:pageMessage severity="Info" summary="Your details has been successfully submitted. Your roll number is {!rollNumber} and class is {!selectedClass}"></apex:pageMessage>                
+        </apex:pageBlock> 
+    </fieldset>   
+</apex:form>
+</apex:page>

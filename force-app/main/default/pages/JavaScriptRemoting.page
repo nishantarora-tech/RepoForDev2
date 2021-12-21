@@ -1,0 +1,52 @@
+<apex:page controller="javaScriptRemotingController">
+    <script type="text/javascript">
+        function getRecordDetails(){
+            var objectName = document.getElementById("objectName").value;            
+            Visualforce.remoting.Manager.invokeAction(                
+                '{!$RemoteAction.javaScriptRemotingController.getRecords}',
+                objectName,
+                function(result,event){                    
+                    if(event.status){
+                        var l = result.length;
+                        if(l==0){
+                            document.getElementById("details").innerHTML='<p>No Results</p>';
+                        }else{
+                            document.getElementById("details").innerHTML='';
+                            var markup = '<table id="records">';
+                            markup +='<tr><th>Sprint Number</th><th>Teams</th></tr>';
+                            for(var i=0;i<l;i++){
+                                var recordDetails = '<tr>'+
+                                "<td>"+result[i].Sprint__c +"</td>"+
+                                    "<td>"+result[i].Vantiv_Teams__c +"</td>"+
+                                    '</tr>';
+                                markup += recordDetails;
+                            }
+                           
+                           document.getElementById("remoteId").innerHTML=  markup;
+                        }
+                    }else if(event.type ="exception"){
+                        document.getElementById("details").innerHTML= event.Message;
+                    }else{
+                        document.getElementById("details").innerHTML= event.Message;
+                    }
+                },   
+                {escape: true}         
+            );       
+        }
+    </script>
+    <h2>Javascript Remoting</h2>
+    <div>
+        <input type="text" id ="objectName" placeHolder="Enter Team Name"/>
+        <input type="button" value="Find" id="btnsearch" onclick="getRecordDetails();"/>
+    </div>    
+    <div id="details">
+    </div>   
+    <apex:pageBlock id="block" mode="inlineEdit">
+        <apex:pageBlockSection id="blockSection" columns="2">
+            <apex:pageBlockSectionItem id="firstItem">
+                <span id="remoteId"/>
+            </apex:pageBlockSectionItem>            
+        </apex:pageBlockSection>
+         
+    </apex:pageBlock>
+</apex:page>

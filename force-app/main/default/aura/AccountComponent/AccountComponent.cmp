@@ -1,0 +1,12 @@
+<aura:component controller="AccountComponentController" implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+	<aura:attribute name="accObj" type="Account" default="{'sobjectType': 'Account',
+                                    'Name': '',
+                                    'AccountNumber': '',
+                                    'AccountSource': '' }"></aura:attribute>
+    <div class="row">
+        <lightning:input type="string" label="Account Name" value="{!v.accObj.Name}"/>
+        <lightning:input type="string" label="Account Number" value="{!v.accObj.AccountNumber}"/>       
+    	<lightning:input type="string" label="Account Source" value="{!v.accObj.AccountSource}"/> 
+    </div>
+    <lightning:button variant="brand" label="Save Account" title="Base action" onclick="{!c.saveAccount}"></lightning:button>
+</aura:component>

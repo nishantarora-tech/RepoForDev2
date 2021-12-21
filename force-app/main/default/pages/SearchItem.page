@@ -1,0 +1,47 @@
+<apex:page controller="SearchItemController" sidebar="false" showHeader="true" >
+<apex:form id="theForm" >    
+    <apex:pageBlock id="searchBlock" >
+        <apex:pageBlockButtons location="bottom">
+            <apex:commandButton action="{!searchResultsMethod}" value="Search" reRender="searchBlock" status="actStatusId"/>            
+            <apex:actionStatus id="actStatusId">
+                <apex:facet name="start">
+                     <img src="/img/loading.gif"/>                   
+                </apex:facet>                
+            </apex:actionStatus>   
+            <apex:commandButton action="{!gotoHomePage}" value="Cancel"/> 
+        </apex:pageBlockButtons>                
+        <apex:pageBlockSection collapsible="true" columns="1" id="sec">  
+            <apex:pageMessages Id="msgid"></apex:pageMessages>           
+            <apex:pageBlockSectionItem helpText="Search String ">     
+                <apex:outputLabel for="searchParam">Search String</apex:outputLabel>            
+                <apex:inputText id="searchParam" value="{!strSearchText}" onclick="if(this.value=='Search...') {this.value='';}"/>                                   
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem helpText="Select the Objects" id="item">
+                <apex:outputLabel for="searchParam">Object Category</apex:outputLabel>
+                    <apex:selectList id="obj" value="{!selectedObj}" size="6" multiselect="true">                                                        
+                        <apex:selectOptions value="{!items}"/>                                        
+                    </apex:selectList>         
+            </apex:pageBlockSectionItem>
+        </apex:pageBlockSection>                       
+        <apex:pageBlockSection collapsible="true" columns="2" rendered="{!searchResults.size > 0}" >       
+            <apex:facet name="header">
+                <span style="color:white">
+                    Search Object
+                </span>            
+            </apex:facet> 
+            <!--apex:pageBlockSectionItem--> 
+                <apex:repeat value="{!searchResults}" var="ListOfObject">
+                    <apex:pageBlock title="{!ListOfObject.sObjectTypeName }">
+                        <apex:pageBlockTable value="{!ListOfObject.record}" var="row">
+                            <apex:column >
+                              <apex:facet name="header">Name</apex:facet> 
+                              {!row['Name']}                                        
+                            </apex:column>                     
+                        </apex:pageBlockTable>
+                    </apex:pageBlock>
+                </apex:repeat> 
+            <!--/apex:pageBlockSectionItem--> 
+        </apex:pageBlockSection>              
+    </apex:pageBlock>
+</apex:form>
+</apex:page>

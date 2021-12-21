@@ -1,0 +1,42 @@
+<apex:page showheader="false" standardController="Account" recordsetVar="accounts" >
+<head>
+     <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" />
+    <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js" />  
+    <apex:styleSheet value="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/smoothness/jquery-ui.css" /> 
+    <!--<apex:includeScript value="{!URLFOR($Resource.jQuery, '/js/jquery-1.12.0.min.js')}"  /> 
+     <apex:includeScript value="{!URLFOR($Resource.jQuery, '/js/jquery-ui-1.12.0.custom.js')}"  />
+    <apex:stylesheet value="{!URLFOR($Resource.jQuery, '/css/ui-lightness/jquery-ui-1.12.0.custom.css')}"  />--> 
+   
+    
+     
+<script>
+   $j = jQuery.noConflict(); 
+   $j(document).ready(function() {
+    $j("#phone").dialog({ autoOpen: true, modal: true, position: 'center' });
+   });     
+   function showDialog(name, phone){            
+      $j("#phoneNumber").html(phone);
+      $j("#phone").dialog({ autoOpen: false});
+      $j("#phone").dialog("open");
+      $j('#phone').dialog("option" , "title" , name);
+      $j('#phone').dialog('option', 'position', 'center');
+      return true;
+   }
+</script>
+<style>
+    .accountLink { color: blue; cursor: pointer;  cursor: hand;}
+</style>
+</head>    
+  
+<body>
+
+  <apex:dataList value="{!accounts}" var="account" id="theList">
+        <a href="" class="accountLink" onclick="return showDialog('{!account.name}','{!account.Phone}')"><apex:outputText value="{!account.name}"/></a>
+  </apex:dataList>
+  
+  <div id="phone">
+      <apex:outputText value="{!account.phone}"/>
+      <div style="float:left">Phone:</div><div id="phoneNumber"></div>      
+  </div>  
+</body>
+</apex:page>

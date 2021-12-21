@@ -1,0 +1,26 @@
+<apex:page Controller="PDMRTableController" showHeader="False" cache="false">
+  <apex:form id="formId">  
+  <apex:pageBlock title="PDMR Data Entry" id="pgBlock">   
+  <apex:outputLabel value="Sprint :" style="font-size:19px; font-weight: bold;">
+  &nbsp;  <apex:selectList size="1" value="{!strSprint}">
+          <apex:selectOptions value="{!PicklistValues}"/>
+          <apex:actionSupport event="onchange" action="{!filterPDMRData}" reRender="pgBlckTbl"/>
+     </apex:selectList>
+     </apex:outputLabel><br></br>                               
+     <apex:pageBlockTable value="{!wraprPDMRList}" var="pdmrQ" id="pgBlckTbl" style="margin-top:15px;">                                      
+       <apex:column headerValue="Data Point Name" value="{!pdmrQ.DataPointName}" width="40%" />            
+       <apex:column headerValue="Cloud 9" value="{!pdmrQ.strCloud9}" /> <br/>
+       <apex:column headerValue="Code Express" value="{!pdmrQ.strCodeExpress}" />     
+       <apex:column headerValue="Giants" value="{!pdmrQ.strGiants}"/>
+       <apex:column headerValue="SFDC Enhancements" value="{!pdmrQ.strEnhancements}" />
+       <apex:column headerValue="Team Phoenix" value="{!pdmrQ.strTeamPhoenix}"/>
+       <apex:column headerValue="Titans" value="{!pdmrQ.strTitans}"/>                        
+     </apex:pageBlockTable>
+     <apex:pageBlockButtons style="align:right" >
+         <apex:commandButton action="{!Download}" id="cmd" value="Export to Excel"/>
+         
+         <apex:commandButton value="Back" action="{!pageRedirect}" />
+     </apex:pageBlockButtons>
+  </apex:pageBlock>
+  </apex:form>
+</apex:page>

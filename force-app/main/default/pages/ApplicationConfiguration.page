@@ -1,0 +1,37 @@
+<apex:page controller="ApplicationConfigurationController" sidebar="false" tabStyle="Account">
+<apex:form >
+    <apex:pageBlock id="block" title="Application Configuration">
+        <apex:outputLabel for="objects">Select Object to configure</apex:outputLabel>
+        &nbsp;<apex:selectList id="objects" value="{!objectSelection}" multiselect="false" size="1">
+                <apex:actionSupport event="onchange" action="{!objectFields}"  reRender="block"/>
+                <apex:selectOptions value="{!ObjectsOptions}"></apex:selectOptions>
+        </apex:selectList>
+        <apex:pageBlock id="block2" title="{!$ObjectType[objectSelection].Label} Fields" rendered="{!if(objectSelection == '',false,true)}">            
+            <apex:pageBlockTable id="table"  value="{!wrpObjectFieldsList}" var="f">                                                      
+                <apex:column >
+                    <apex:inputCheckbox value="{!f.selected}"/>
+                </apex:column>  
+                <apex:column >                    
+                    <apex:facet name="header">Field Label</apex:facet>
+                    <apex:outputText value="{!f.fieldLabel}"/>                
+                </apex:column> 
+                <apex:column >                    
+                    <apex:facet name="header">Field Name</apex:facet>
+                    <apex:outputText value="{!f.APiName}"/>                
+                </apex:column>                     
+                <apex:column >                    
+                    <apex:facet name="header">Field Type</apex:facet>
+                    <apex:outputText value="{!f.fieldType}"/>                
+                </apex:column>    
+                <apex:column >                    
+                    <apex:facet name="header">Field Size</apex:facet>
+                    <apex:outputText value="{!f.fieldLength}"/>                
+                </apex:column>                                                                                                                              
+            </apex:pageBlockTable>          
+            <apex:pageBlockButtons >
+                <apex:commandButton value="Field" action="{!fieldButton}"/>
+            </apex:pageBlockButtons>            
+        </apex:pageBlock>         
+     </apex:pageBlock>          
+</apex:form>
+</apex:page>

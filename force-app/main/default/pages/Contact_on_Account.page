@@ -1,0 +1,16 @@
+<apex:page standardController="Account" Extensions="ContactOnAccountController" tabStyle="Account" sidebar="false">
+ <apex:form >     
+     <apex:pageBlock title="Contact Detail">   
+     <apex:pageMessages />      
+         <apex:pageBlockTable value="{!wrpConList}" var="con">
+             <apex:column ><apex:inputCheckbox value="{!con.selected}" /> </apex:column>
+             <apex:column value="{!con.con.FirstName}"/>
+             <apex:column value="{!con.con.LastName}"/>           
+         </apex:pageBlockTable>
+         <apex:pageBlockButtons location="bottom">
+             <apex:commandButton value="Add Contact" action="{!addContact}"/>  
+             <apex:commandButton value="Cancel" action="{!Cancel}"/>  
+         </apex:pageBlockButtons>               
+     </apex:pageBlock>
+ </apex:form>
+</apex:page>

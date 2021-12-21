@@ -1,0 +1,68 @@
+<apex:page controller="wizardController" tabStyle="Opportunity" wizard="true"> 
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+  <script>
+      function cancel(){
+           var isCancel = confirm('Are you wish to cancel?');
+           if(isCancel)
+               return true;
+             
+            return false;
+      }                
+      $(document).ready(function() {         
+         $('.bPageFooter').hide();         
+      });       
+  </script>    
+  <apex:form >
+      <apex:dynamicComponent componentValue="{!headerWithSteps}"/>
+      <apex:pageBlock title="Customer Information" rendered="{!page1}">
+          <apex:pageBlockSection title="Account Information" collapsible="false">
+              <apex:inputField value="{!Acc.name}"/>
+              <apex:inputField value="{!Acc.site}"/>
+          </apex:pageBlockSection>
+          <apex:pageBlockSection title="Contact Information" collapsible="false">      
+              <apex:inputField value="{!con.firstname}"/>
+              <apex:inputField value="{!con.lastname}"/>
+              <apex:inputField value="{!con.Phone}"/>            
+          </apex:pageBlockSection>
+          <apex:pageBlockButtons >
+              <apex:commandButton value="Next" action="{!Next}"/>
+              <apex:commandButton value="Cancel" action="{!cancel}" onclick="return cancel()" immediate="true"/>             
+          </apex:pageBlockButtons>          
+      </apex:pageBlock>
+      <apex:pageBlock title="Opportunity Information" rendered="{!page2}">
+          <apex:pageBlockSection title="Opportunity Information" collapsible="false">
+              <apex:inputField value="{!opp.name}"/>
+              <apex:inputField value="{!opp.Amount}"/>
+              <apex:inputField value="{!opp.CloseDate}"/>              
+              <apex:inputField value="{!opp.StageName}"/>          
+          </apex:pageBlockSection>
+          <apex:pageBlockButtons >
+              <apex:commandButton value="Previous" action="{!Previous1}" immediate="true"/>
+              <apex:commandButton value="Next" action="{!Next2}"/>
+              <apex:commandButton value="Cancel" action="{!cancel}" onclick="return cancel()" immediate="true"/>              
+          </apex:pageBlockButtons>
+      </apex:pageBlock>  
+      <apex:pageBlock title="Confirmation" rendered="{!page3}">
+          <apex:pageBlockSection title="Account Information" collapsible="false">
+              <apex:outputField value="{!Acc.name}"/>
+              <apex:outputField value="{!Acc.site}"/>
+          </apex:pageBlockSection>
+          <apex:pageBlockSection title="Contact Information" collapsible="false">      
+              <apex:outputField value="{!con.firstname}"/>
+              <apex:outputField value="{!con.lastname}"/>
+              <apex:outputField value="{!con.Phone}"/>
+          </apex:pageBlockSection>
+          <apex:pageBlockSection title="Opportunity Information" collapsible="false">
+              <apex:outputField value="{!opp.name}"/>
+              <apex:outputField value="{!opp.Amount}"/>
+              <apex:outputField value="{!opp.CloseDate}"/>              
+              <apex:outputField value="{!opp.StageName}"/>          
+          </apex:pageBlockSection>
+          <apex:pageBlockButtons >
+              <apex:commandButton value="Previous" action="{!Previous2}"/>
+              <apex:commandButton value="Save" action="{!save}"/>
+              <apex:commandButton value="Cancel" action="{!cancel}" onclick="return cancel()" immediate="true"/>                         
+          </apex:pageBlockButtons>          
+      </apex:pageBlock>    
+  </apex:form>
+</apex:page>

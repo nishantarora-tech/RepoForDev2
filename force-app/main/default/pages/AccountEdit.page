@@ -1,0 +1,100 @@
+<apex:page standardController="Account" extensions="AccountEditController">
+<apex:includeScript value="/support/console/26.0/integration.js"/>
+<apex:form >    
+    <script type="text/javascript">                        
+        function testCloseTab() {
+            //First find the ID of the current tab to close it
+            sforce.console.getEnclosingTabId(closeSubtab);          
+        }
+        function refreshPage(){            
+            sforce.console.getFocusedPrimaryTabId(getPrimary);
+        }        
+        var getPrimary = function getPrimary(result) {           
+            var primaryTabId = result.id;            
+            sforce.console.refreshPrimaryTabById(primaryTabId, true, refreshSuccess);
+        };   
+        var refreshSuccess = function refreshSuccess(result) {
+            if (result.success == true) {
+                alert('Primary tab refreshed successfully');
+            } else {
+                alert('Primary did not refresh');
+            }
+        };           
+        var closeSubtab = function closeSubtab(result) {
+            //Now that we have the tab ID, we can close it
+            var tabId = result.id;
+            sforce.console.closeTab(tabId);            
+        };        
+        var CaseId ='';
+        function openNewSubtab(Id){
+            CaseId = Id;
+            sforce.console.getEnclosingPrimaryTabId(openSubtab);
+        }
+        var openSubtab = function openSubtab(result) {
+            var primaryTabId = result.id;
+            if(CaseId[0]!=null){
+                var listCaseId = CaseId.split(',');
+                for(str in listCaseId ){                    
+                    var URL = '/'+listCaseId[str];
+                    sforce.console.openSubtab(primaryTabId,URL,true,'',null,listCaseId[str]+'salesforceSubtab');
+                }
+             }
+        };
+    </script>
+    <apex:pageBlock title="Account Editable fields" id="pb" mode="Edit">
+    <apex:pageMessages ></apex:pageMessages>
+    <script type="text/javascript">
+       function openCaseInSubtab(){
+            var varCaseId = '{!strCaseIds}';              
+            openNewSubtab(varCaseId);
+            if(varCaseId[0]!=null)
+                testCloseTab();
+            else{
+                testCloseTab();
+                refreshPage();
+             }
+        }
+    </script>
+        <apex:pageBlockSection columns="1" title="Account Details" collapsible="false">            
+            <apex:pageBlockTable value="{!$ObjectType.Account.FieldSets.Approval_For_Chain}" var="f">
+              <apex:column width="15%" value="{!f.Label}" headerValue="Field Names" />
+              <apex:column width="15%" value="{!acc[f.fieldPath]}" headerValue="Existing Values" />
+                <apex:column width="60%" headerValue="New Values">                
+                    <apex:inputField value="{!acc[f.fieldPath]}"/>                                            
+                </apex:column> 
+            </apex:pageBlockTable> 
+        </apex:pageBlockSection>   
+        <apex:pageBlockSection columns="1" title="Approval Fields" collapsible="false">            
+            <apex:pageBlockTable value="{!$ObjectType.Account.FieldSets.Approval_Required}" var="f">
+              <apex:column width="15%" value="{!f.Label}" headerValue="Field Names" />
+              <apex:column width="15%" value="{!acc[f.fieldPath]}" headerValue="Existing Values" />
+                <apex:column width="60%" headerValue="New Values">                
+                    <apex:inputField value="{!acc[f.fieldPath]}"/>                                            
+                </apex:column> 
+            </apex:pageBlockTable> 
+        </apex:pageBlockSection>         
+        <apex:pageBlockSection columns="1" title="Billing Address" collapsible="false">            
+            <apex:pageBlockTable value="{!$ObjectType.Account.FieldSets.Approval_For_Billing_Address}" var="f">
+              <apex:column width="15%" value="{!f.Label}" headerValue="Field Names" />
+              <apex:column width="15%" value="{!acc[f.fieldPath]}" headerValue="Existing Values" />
+                <apex:column width="60%" headerValue="New Values">                
+                    <apex:inputField value="{!acc[f.fieldPath]}"/>                                            
+                </apex:column> 
+            </apex:pageBlockTable> 
+        </apex:pageBlockSection>
+        <apex:pageBlockSection columns="1" title="Shipping Address" collapsible="false">            
+            <apex:pageBlockTable value="{!$ObjectType.Account.FieldSets.Approval_For_Shipping_Address}" var="f">
+              <apex:column width="15%" value="{!f.Label}" headerValue="Field Names" />
+              <apex:column width="15%" value="{!acc[f.fieldPath]}" headerValue="Existing Values" />
+                <apex:column width="60%" headerValue="New Values">                
+                    <apex:inputField value="{!acc[f.fieldPath]}"/>                                            
+                </apex:column> 
+            </apex:pageBlockTable> 
+        </apex:pageBlockSection>                              
+        <apex:pageBlockButtons >
+            <apex:commandButton value="Submit" action="{!save}" oncomplete="openCaseInSubtab();" reRender="pb"/>
+            <apex:commandButton value="Cancel" onclick="testCloseTab()"/>
+        </apex:pageBlockButtons>     
+    </apex:pageBlock>
+</apex:form>  
+</apex:page>

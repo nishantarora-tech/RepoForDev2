@@ -1,0 +1,8 @@
+<aura:component >
+    <aura:attribute name="messageFromEvent" type="String" default="Component Event Fired"></aura:attribute>
+    <aura:registerEvent name="messageApplicationEvent" type="c:ApplicationEvent"></aura:registerEvent>
+    <aura:handler name="messageEvent" event="c:MessaginngComponentEvent" action="{!c.handlerChildMessage}"></aura:handler>
+	<lightning:button variant="brand" label="Application Event Button" onclick="{!c.fireApplicationEvent}"></lightning:button>
+    <c:ChildComponent_registerEvent></c:ChildComponent_registerEvent>
+    <p>{!v.messageFromEvent}</p>
+</aura:component>

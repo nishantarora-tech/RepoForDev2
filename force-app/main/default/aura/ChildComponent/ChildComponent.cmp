@@ -1,0 +1,9 @@
+<aura:component implements="flexipage:availableForAllPageTypes,flexipage:availableForRecordHome,force:hasRecordId" access="global" >
+	<aura:attribute name="recordInfo" type="Object"></aura:attribute>
+    <aura:attribute name="sobject" type="string" access="global" />
+    <aura:attribute name="sobjectDisplayName" type="string" access="global" /> 
+    <aura:attribute name="recordName" type="string" default=""/>
+    <aura:attribute name="queryField" type="string" access="global" />
+    
+    <lightning:input name="name1" value="{!v.recordName}" placeholder="{!'search' + v.sobjectDisplayName}" onchange="{!c.setSelectedValue}"></lightning:input>
+</aura:component>

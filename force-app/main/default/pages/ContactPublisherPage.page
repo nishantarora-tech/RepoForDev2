@@ -1,0 +1,25 @@
+<apex:page standardController="Case" showHeader="false" tabStyle="Contact" extensions="ContactPublisherController" sidebar="false">
+    <script type="text/javascript"> 
+        function RefreshPrimaryTab(id){
+                  alert(id);
+                  window.top.location.href = '/' + id;
+        }
+    </script>
+
+    <apex:form >                
+        <apex:pageBlock >  
+        <apex:pageMessages id="msgId"></apex:pageMessages>
+            <apex:pageBlockSection title="Existing Contact" collapsible="false">
+                <apex:inputField value="{!case.ContactId}"/>
+            </apex:pageBlockSection>               
+            <apex:pageBlockSection title="New Contact" columns="1" collapsible="false">
+                <apex:inputField value="{!con.FirstName}"/>
+                <apex:inputField value="{!con.lastName}"/>                
+            </apex:pageBlockSection>            
+            <apex:pageBlockButtons location="bottom">
+                <apex:commandButton value="Save"/>
+                <apex:commandButton value="Update" reRender="msgId" oncomplete="RefreshPrimaryTab('{!case.id}')"/>   
+            </apex:pageBlockButtons>                        
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>

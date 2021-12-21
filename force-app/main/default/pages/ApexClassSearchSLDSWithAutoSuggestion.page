@@ -1,0 +1,104 @@
+<apex:page standardStylesheets="false" controller="ApexClassSearchSLDSWithAutoSuggestion">    
+<html>
+    <head>    
+        <meta charset="utf-8" />        
+        <meta http-equiv="x-ua-compatible" content="ie=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />   
+        <apex:stylesheet value="{!URLFOR($Resource.SLDS, 'assets/styles/salesforce-lightning-design-system.css')}" />
+        <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js" />
+        <apex:includeScript value="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/jquery-ui.min.js" />
+        <apex:styleSheet value="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.0/themes/smoothness/jquery-ui.css" />
+    </head>
+    <body>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    <script> 
+        $(document).ready(function(){
+            $('.bPageFooter').hide();
+        });       
+        function searchApex(){
+            var apexClass = new SObjectModel.ApexClass();
+            var className = document.getElementById('searchId').value.toLowerCase();            
+            var outputDiv  = document.getElementById('table');            
+            apexClass.retrieve(                                 
+                {limit:100,orderby:[{Name:'ASC'}],where : { NamespacePrefix :{eq : ''}}},function(error,records){                            
+                    if(error){
+                        alert(error.message);
+                    }else{                                           
+                        var dataTable = document.createElement('table');
+                        dataTable.className = 'slds-table slds-table--bordered slds-table--cell-buffer slds-no-row-hover';                                       
+                        var tableHeader = dataTable.createTHead();                    
+                        var tableHeaderRow = tableHeader.insertRow();
+                        
+                        var tableHeaderRowCell1 = tableHeaderRow.insertCell(0);                                           
+                        tableHeaderRowCell1.appendChild(document.createTextNode('Class Name'));                                         
+                        tableHeaderRowCell1.setAttribute('scope','col');
+                        tableHeaderRowCell1.setAttribute('class','slds-text-heading--label');
+                        
+                        var tableHeaderRowCell2 = tableHeaderRow.insertCell(1);                       
+                        tableHeaderRowCell2.appendChild(document.createTextNode('Status'));
+                        tableHeaderRowCell2.setAttribute('scope','col');                    
+                        tableHeaderRowCell2.setAttribute('class','slds-text-heading--label');                                                                                
+                        
+                        var tableBody = dataTable.appendChild(document.createElement('tbody'));                                                                 
+                        var dataRow,dataRowCell1, dataRowCell2, recordName, recordStatus; 
+                        var check = true;                                              
+                        records.forEach(function(record){                                                                                                                                                                                                                                                                                                        
+                            if(record.get('Name').toLowerCase() == className){ 
+                                document.getElementById('table').innerHTML = '';                                                                                                                                                                                            
+                                dataRow =  tableBody.insertRow();                       
+                                dataRowCell1 = dataRow.insertCell(0);
+                                var anchor = document.createElement('a');                            
+                                recordName = document.createTextNode(record.get('Name'));                                                                 
+                                anchor.target = '_blank';                                  
+                                anchor.setAttribute('href', '/' + record.get('Id'));
+                                anchor.appendChild(recordName);               
+                                dataRowCell1.appendChild(anchor);                                                   
+                                dataRowCell2 = dataRow.insertCell(1);                        
+                                recordStatus = document.createTextNode(record.get('Status'));
+                                dataRowCell2.appendChild(recordStatus);
+                                outputDiv.appendChild(dataTable);  
+                                check = false;                                                                                                                                                                                            
+                             } 
+                             if(className == ''){  
+                                document.getElementById('table').innerHTML = '';                                                                                             
+                                dataRow =  tableBody.insertRow();                       
+                                dataRowCell1 = dataRow.insertCell(0);
+                                var anchor = document.createElement('a');                            
+                                recordName = document.createTextNode(record.get('Name'));                                                                 
+                                anchor.target = '_blank';                                  
+                                anchor.setAttribute('href', '/' + record.get('Id'));
+                                anchor.appendChild(recordName);               
+                                dataRowCell1.appendChild(anchor);                                                   
+                                dataRowCell2 = dataRow.insertCell(1);                        
+                                recordStatus = document.createTextNode(record.get('Status'));
+                                dataRowCell2.appendChild(recordStatus);
+                                outputDiv.appendChild(dataTable);
+                                check = false; 
+                            }
+                            if(record.get('Name').toLowerCase() != className && check==true) {
+                                document.getElementById('table').innerHTML = 'No result found'; 
+                            }                                                                                           
+                        });                                                                                                                                                 
+                    }
+                }            
+            );            
+        }
+    </script>
+    </body>
+    </html>
+    <apex:remoteObjects >
+        <apex:remoteObjectModel name="ApexClass" fields="Id,Name,Status,NamespacePrefix "/>        
+    </apex:remoteObjects>    
+    <form class="slds-form--stacked">
+        <fieldset class="slds-box slds-theme--default slds-container--medium">
+        <legend class="slds-text-heading--large slds-p-vertical--medium">Search for Apex Class</legend>
+            <div class="slds-form-element">
+                <div class="slds-form-element__control">
+                    <input id="searchId" class="slds-input" type="text" placeholder="Search..."/>                   
+                    <button class="slds-button slds-button--brand slds-m-top--medium" type="button" onclick="searchApex()">Search</button>
+                </div>
+            </div>            
+        </fieldset>
+        <div id="table"></div>
+    </form>
+</apex:page>

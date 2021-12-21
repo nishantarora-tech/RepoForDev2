@@ -1,0 +1,24 @@
+<aura:component implements="flexipage:availableForAllPageTypes" controller="ContactAura">
+    <aura:attribute name="contactRows" type="Object[]"/>
+    <aura:attribute name="Hello" type="String" default="Hello"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}" />
+    <div class="container">
+        <p>
+        	<b> List of Contacts </b>
+        </p><br></br>
+        <table border="1">
+                <tr>
+                    <th><strong> Id </strong></th>
+                    <th> <strong>  Name </strong> </th>
+                </tr>            
+            <tbody>
+                <aura:iteration var="cell" items="{!v.contactRows}">
+                    <tr>
+                        <td> <a href="{! '/'+cell.Id}"> {!cell.Id} </a> </td>
+                        <td> {!cell.Name}  </td>
+                    </tr>
+                </aura:iteration>
+            </tbody>
+        </table>
+ 	</div>
+</aura:component>

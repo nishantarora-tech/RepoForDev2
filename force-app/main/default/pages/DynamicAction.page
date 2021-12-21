@@ -1,0 +1,19 @@
+<apex:page standardController="Account" 
+           extensions="DynamicActionsHandler">
+    <br/>
+
+    <apex:dataTable value="{!customObjectDetails}" var="coDetails">
+        <apex:column >
+            <apex:facet name="header">Custom Object</apex:facet>
+            <apex:outputText value="{!coDetails.labelStr}"/> 
+        </apex:column>
+        <apex:column >
+            <apex:facet name="header">Actions</apex:facet>
+            <apex:outputLink value="{!URLFOR($Action[coDetails.nameStr].New)}" 
+                rendered="{!coDetails.creatable}">[Create]</apex:outputLink><br/>
+            <apex:outputLink value="{!URLFOR($Action[coDetails.nameStr].List, 
+                $ObjectType[coDetails.nameStr].keyPrefix)}">[List]</apex:outputLink>
+        </apex:column>
+    </apex:dataTable>
+
+</apex:page>

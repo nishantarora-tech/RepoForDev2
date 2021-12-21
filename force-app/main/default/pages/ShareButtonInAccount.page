@@ -1,0 +1,15 @@
+<apex:page standardController="Account" Extensions="shareButtonInAccountController" tabStyle="Account">
+ <apex:form >     
+     <apex:pageBlock title="User Detail">   
+     <apex:pageMessages />      
+         <apex:pageBlockTable value="{!wrpUsrList}" var="con">
+             <apex:column ><apex:inputCheckbox value="{!con.selected}" /> </apex:column>
+             <apex:column value="{!con.usr.Name}"/>
+         </apex:pageBlockTable>
+         <apex:pageBlockButtons location="bottom">
+             <apex:commandButton value="Share" action="{!share}"/> 
+             <apex:commandButton value="Cancel" action="{!cancel}"/>   
+         </apex:pageBlockButtons>               
+     </apex:pageBlock>
+ </apex:form>
+</apex:page>

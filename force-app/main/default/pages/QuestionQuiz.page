@@ -1,0 +1,16 @@
+<apex:page controller="QuestionQuizController" sidebar="false">
+  <apex:form >
+      <apex:pageBlock >
+          <apex:repeat id="quiz1" value="{!QuestionQuiz}" var="quiz">
+              <apex:outputText value="{!quiz.PDMR_Questions__c}"></apex:outputText>
+          </apex:repeat><br/>
+          <apex:outputPanel id="panel" style="margin-left :410px;">                         
+            <apex:outputText id="page1" value="Page {!pageNumber} of {!CEILING(ResultSize /PageSize)}" rendered="{!CEILING(ResultSize /PageSize)>0}"/>                        
+            <apex:commandButton id="first" value="First<|" action="{!first}" rendered = "{!pageNumber>1}"/>
+            <apex:commandButton value="Next>" action="{!next}" rendered="{!hasNext}" reRender="quiz1,page1,panel"/>
+            <apex:commandButton id="previous1" value="Previous<" action="{!previous}" rendered="{!hasPrevious}"  reRender="panel"/> 
+            <apex:commandButton value="Last>|" action="{!Last}" reRender="panel" rendered="{!CEILING(ResultSize /PageSize)<>pageNumber && CEILING(ResultSize /PageSize)<>pageNumber}"/> 
+          </apex:outputPanel>             
+      </apex:pageBlock>
+  </apex:form>
+</apex:page>

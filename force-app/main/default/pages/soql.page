@@ -1,0 +1,26 @@
+<apex:page Controller="soqlController">
+<apex:form >
+    <apex:pageBlock >
+    <apex:pageMessages ></apex:pageMessages>
+        <apex:pageBlockSection columns="1">                      
+            <apex:pageBlockSectionItem >           
+                <apex:outputLabel value="Query Editor" for="textArea"></apex:outputLabel>
+                <apex:inputTextarea id="textArea" value="{!strQuery}"  style="width:190px;height:60px"/>          
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >          
+                <apex:commandButton value="Go" action="{!go}" style="width:50px;margin-left:230px"/>
+            </apex:pageBlockSectionItem>            
+        </apex:pageBlockSection>
+        <h2><apex:outputText value="{!count} records found" style="font-size: 15px;"  rendered="{!if(AND(NOT(ISBLANK(sObjList)),sObjList.size>0),true,false)}"></apex:outputText></h2><br/>                    
+        <apex:pageBlockTable value="{!sObjList}" var="sObj" rendered="{!if(AND(NOT(ISBLANK(sObjList)),sObjList.size>0),true,false)}" >                                                  
+            <apex:repeat value="{!fieldsSchemaList}" var="f">
+                <apex:column >
+                    <apex:outputText value="{!sObj}"></apex:outputText>
+                </apex:column>
+                                    
+            </apex:repeat>                     
+        </apex:pageBlockTable>       
+    </apex:pageBlock>
+</apex:form>
+ 
+</apex:page>
