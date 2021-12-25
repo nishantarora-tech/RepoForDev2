@@ -6,6 +6,7 @@ public class AccountandContactSearch{
     public void AccountandContactSearch(){
         str = false;
         accList = new List<Account>();
+        
     }
     public void searchAcc(){
         accList = [Select name ,Phone,AnnualRevenue,(SELECT Name, Email FROM Contacts)  from Account where name =:searchText ];
