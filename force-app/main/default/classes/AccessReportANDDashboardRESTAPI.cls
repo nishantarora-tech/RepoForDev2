@@ -1,7 +1,7 @@
 public class AccessReportANDDashboardRESTAPI {                       
     @future(callout=true) 
     public static void getReportAndDashboard(string name){
-        //Set<Id> reportIds = new Set<Id>();       
+        Set<Id> reportIds = new Set<Id>();       
         List<DashboardComponent> cmt = [Select name,customReportId,dashboardId from DashboardComponent where dashboardId ='01Z0o000000uvTz'];
         Map<Id,DashboardComponent> reportToDashboardId = new Map<Id,DashboardComponent>();
         for(DashboardComponent dash : cmt){
